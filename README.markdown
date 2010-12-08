@@ -143,6 +143,8 @@ Dans tous les autres cas, les gestes de mouvement concernent la vue de l'utilisa
 
 ### Sélection
 
+À faire.
+
 #### Désélection
 
 Puisque la sélection concerne uniquement un objet de la scène qui n'est visible que lorsque la vue de l'utilisateur le présente, nous jugeons que la désélection n'est pas une opération nécessaire.
