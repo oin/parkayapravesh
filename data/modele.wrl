@@ -1,0 +1,106 @@
+#VRML V2.0 utf8
+
+# Université Bordeaux 1 - 2010
+# Projet de RV   
+
+DEF targetCoord Coordinate { point [ -0.1 -0.1 0.1 , 0.1 -0.1 0.1 , 0.1 0.1 0.1 , -0.1 0.1 0.1, -0.1 -0.1 -0.1 , 0.1 -0.1 -0.1 , 0.1 0.1 -0.1 , -0.1 0.1 -0.1 ] }
+
+DEF modele Group { children [
+
+Transform {
+  translation -0.6 3.15 -0.5
+  rotation 0 1 0 0.8
+  children [ Group { children [
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 0, 1, 2, 3, -1 ] }
+      appearance Appearance { material Material { diffuseColor 1 0.2 0.5 } } }
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 3, 2, 6, 7, -1, 1, 5, 6, 2, -1, 5, 4, 7, 6, -1, 4, 0, 3, 7, -1, 4, 5, 1, 0, -1 ] }
+      appearance Appearance { material Material { diffuseColor  0.1 0.5 0.5 } } }
+ ] } ] }
+
+Transform {
+  translation -0.3 3.15 -0.5
+  rotation 0 1 0 -0.8
+  children [ Group { children [
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 0, 1, 2, 3, -1 ] }
+      appearance Appearance { material Material { diffuseColor 0 0 0.8 } } }
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 3, 2, 6, 7, -1, 1, 5, 6, 2, -1, 5, 4, 7, 6, -1, 4, 0, 3, 7, -1, 4, 5, 1, 0, -1 ] }
+      appearance Appearance { material Material { diffuseColor  0.1 0.5 0.5 } } }
+ ] } ] }
+
+Transform {
+  translation -0.45 3.35 -0.5
+  rotation 0 1 0 0
+  children [ Group { children [
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 0, 1, 2, 3, -1 ] }
+      appearance Appearance { material Material { diffuseColor 0 0.8 0 } } }
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 3, 2, 6, 7, -1, 1, 5, 6, 2, -1, 5, 4, 7, 6, -1, 4, 0, 3, 7, -1, 4, 5, 1, 0, -1 ] }
+      appearance Appearance { material Material { diffuseColor  0.1 0.5 0.5 } } }
+ ] } ] }
+
+Transform {
+  translation 0.6 3.15 -0.5
+  rotation 0 1 0 -0.8
+  children [ Group { children [
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 0, 1, 2, 3, -1 ] }
+      appearance Appearance { material Material { diffuseColor 1 0.2 0.5 } } }
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 3, 2, 6, 7, -1, 1, 5, 6, 2, -1, 5, 4, 7, 6, -1, 4, 0, 3, 7, -1, 4, 5, 1, 0, -1 ] }
+      appearance Appearance { material Material { diffuseColor  0.1 0.5 0.5 } } }
+ ] } ] }
+
+Transform {
+  translation 0.3 3.15 -0.5
+  rotation 0 1 0 0.8
+  children [ Group { children [
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 0, 1, 2, 3, -1 ] }
+      appearance Appearance { material Material { diffuseColor 0 0 0.8 } } }
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 3, 2, 6, 7, -1, 1, 5, 6, 2, -1, 5, 4, 7, 6, -1, 4, 0, 3, 7, -1, 4, 5, 1, 0, -1 ] }
+      appearance Appearance { material Material { diffuseColor  0.1 0.5 0.5 } } }
+ ] } ] }
+
+Transform {
+  translation 0.45 3.35 -0.5
+  rotation 0 1 0 0
+  children [ Group { children [
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 0, 1, 2, 3, -1 ] }
+      appearance Appearance { material Material { diffuseColor 0 0.8 0 } } }
+    Shape {
+      geometry IndexedFaceSet {
+         coord USE targetCoord
+         coordIndex [ 3, 2, 6, 7, -1, 1, 5, 6, 2, -1, 5, 4, 7, 6, -1, 4, 0, 3, 7, -1, 4, 5, 1, 0, -1 ] }
+      appearance Appearance { material Material { diffuseColor  0.1 0.5 0.5 } } }
+ ] } ] }
+
+] }
