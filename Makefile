@@ -43,7 +43,7 @@ rvip_objects = $(patsubst %.cpp,%.o,$(wildcard $(rvip_dir)/*.cpp))
 
 ##################
 
-all: $(programmes)
+all: .gitignore $(programmes)
 
 %: %.src/*.cpp librvip.a
 	$(LINK.cpp) $(OUTPUT_OPTION) $^
@@ -56,4 +56,4 @@ librvip.a: $(rvip_objects)
 
 .PHONY: clean
 clean:
-	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes)) librvip.a
+	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes)) librvip/*.o librvip.a
