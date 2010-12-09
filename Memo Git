@@ -23,8 +23,6 @@ git remote add github git@github.com:oin/parkayapravesh.git
 git pull github
 # Ou si ça marche pas
 git pull github master
-# Ou alors
-git fetch github
 
 # À chaque fois qu'un fichier est créé
 git add nom_fichier
