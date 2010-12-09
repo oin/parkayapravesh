@@ -2,6 +2,7 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGGLUT.h>
 #include <cstdlib>
+#include <ctime>
 
 OSG_USING_NAMESPACE;
 
