@@ -1,0 +1,45 @@
+# Générer la clé RSA
+ssh-keygen -t rsa -C "MON MAIL"
+# (entrée, entrée, entrée)
+
+# Lit la clé
+cat ~/.ssh/id_rsa.pub
+
+# Copier-coller dans https://github.com/account dans la page SSH Public Keys (faire Ajouter une clé publique)
+
+# Configurer git
+git config --global user.name "MON NOM"
+git config --global user.email "MON MAIL"
+
+# Aller dans un répertoire
+
+# Initialiser un dépot git
+git init
+
+# Ajouter un alias pour Github
+git remote add github git@github.com:oin/parkayapravesh.git
+
+# Récupérer (pull)
+git pull github
+# Ou si ça marche pas
+git pull github master
+# Ou alors
+git fetch github
+
+# À chaque fois qu'un fichier est créé
+git add nom_fichier
+
+# À chaque fois qu'un fichier est déplacé ou supprimé
+git rm nom_fichier
+git mv nom_fichier
+
+# Commiter tous les changements
+git commit -a
+
+# Commiter tous les changements avec un message
+git commit -am "Message de merde"
+
+# Envoyer les modifs (push)
+git push github
+
+# Voilà !
