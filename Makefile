@@ -43,7 +43,7 @@ rvip_objects = $(patsubst %.cpp,%.o,$(wildcard $(rvip_dir)/*.cpp))
 
 ##################
 
-all: .gitignore $(programmes)
+all: $(programmes)
 
 %: %.src/*.cpp librvip.a
 	$(LINK.cpp) $(OUTPUT_OPTION) $^
