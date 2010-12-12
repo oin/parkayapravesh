@@ -75,7 +75,7 @@ doigt luigi::point_median() {
 	float x_med = (doigt1_.x() + doigt2_.x()) / 2;
 	float y_med = (doigt2_.x() + doigt2_.y()) / 2;
 	
-	return doigt(x_med, y_med, -1);
+	return doigt(x_med, y_med, doigt1_.id() + doigt2_.id());
 }
 
 float luigi::longueur() {

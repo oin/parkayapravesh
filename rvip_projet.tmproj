@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>librvip/peach.h</string>
+	<string>tuio_testing.src/tuio_testing.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -63,20 +63,6 @@
 			<key>firstVisibleLine</key>
 			<integer>130</integer>
 		</dict>
-		<key>caca.src/untitled.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>34</integer>
-				<key>line</key>
-				<integer>3</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>libTUIO/TUIO/TuioClient.h</key>
 		<dict>
 			<key>caret</key>
@@ -121,20 +107,6 @@
 				<integer>24</integer>
 			</dict>
 		</dict>
-		<key>librvip/coords.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>12</integer>
-				<key>line</key>
-				<integer>7</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>librvip/dieu.cpp</key>
 		<dict>
 			<key>caret</key>
@@ -168,42 +140,42 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>55</integer>
 				<key>line</key>
-				<integer>67</integer>
+				<integer>77</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>24</integer>
+			<integer>42</integer>
 		</dict>
 		<key>librvip/entrees.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>40</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>31</integer>
+				<integer>36</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>23</integer>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>91</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>156</integer>
+			<integer>70</integer>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.h</key>
 		<dict>
@@ -212,21 +184,21 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>19</integer>
+				<integer>71</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>11</integer>
+			<integer>44</integer>
 		</dict>
 		<key>librvip/mario.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>35</integer>
 				<key>line</key>
-				<integer>7</integer>
+				<integer>19</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -252,23 +224,23 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>28</integer>
 				<key>line</key>
-				<integer>80</integer>
+				<integer>93</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>54</integer>
+			<integer>69</integer>
 		</dict>
 		<key>librvip/peach.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>46</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>9</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -289,70 +261,52 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>rvip.src/main.cpp</key>
+		<key>librvip/toad.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>30</integer>
 				<key>line</key>
-				<integer>11</integer>
+				<integer>4</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>11</integer>
-			</dict>
 		</dict>
 		<key>tuio_testing.src/tuio_testing.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>431</integer>
 				<key>line</key>
-				<integer>23</integer>
+				<integer>24</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>46</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>15</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>Makefile</string>
-		<string>caca.src/untitled.cpp</string>
-		<string>rvip.src/main.cpp</string>
 		<string>README.markdown</string>
 		<string>Memo Git</string>
 		<string>librvip/gestionnaire_de_scene.h</string>
-		<string>librvip/coords.h</string>
 		<string>librvip/entrees.h</string>
 		<string>librvip/mario.h</string>
+		<string>librvip/peach.h</string>
 		<string>libTUIO/TUIO/TuioListener.h</string>
 		<string>librvip/mario.cpp</string>
 		<string>libTUIO/TUIO/TuioClient.h</string>
 		<string>tuio_testing.src/tuio_testing.cpp</string>
+		<string>librvip/toad.h</string>
 		<string>librvip/peach.cpp</string>
 		<string>librvip/dieu.h</string>
 		<string>librvip/dieu.cpp</string>
-		<string>librvip/peach.h</string>
 		<string>librvip/entrees.cpp</string>
 		<string>librvip/gestionnaire_de_scene.cpp</string>
 		<string>librvip/rvip.h</string>
@@ -369,21 +323,7 @@
 			<true/>
 			<key>subItems</key>
 			<dict>
-				<key>caca.src</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
 				<key>librvip</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-				<key>rvip.src</key>
 				<dict>
 					<key>isExpanded</key>
 					<true/>
@@ -401,6 +341,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{657, 77}, {720, 801}}</string>
+	<string>{{657, 136}, {778, 742}}</string>
 </dict>
 </plist>

@@ -1,0 +1,13 @@
+# Recettes graphiques
+
+Les nombres sont indicatifs.
+
+## Pour faire l'effet de motion blur
+
+Changer le z de la caméra (-0.1 / frame) et le FOV de la caméra (+0.6 degrés / frame).
+Exemple :
+	instance_->z_ -= 0.100;
+	degres += 0.6;
+	beginEditCP(instance_->camera_);
+		instance_->camera_->setFov(deg2rad(degres));
+	endEditCP(instance_->camera_);
