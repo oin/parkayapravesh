@@ -10,7 +10,7 @@ OSG_USING_NAMESPACE;
 
 gestionnaire_de_scene* gestionnaire_de_scene::instance_ = 0;
 
-gestionnaire_de_scene::gestionnaire_de_scene(int* argc, char** argv, std::string titre) : titre_(titre), x_(0), y_(3.5), z_(10), rx_(0), ry_(0), rz_(0), rtheta_(0), angle_focale_(90), fps_(50), ms_par_frame_(static_cast<int>(1.0/fps_ * 1000)), motion_blur_(false) {
+gestionnaire_de_scene::gestionnaire_de_scene(int* argc, char** argv, std::string titre) : titre_(titre), x_(0), y_(3.5), z_(10), rx_(0), ry_(0), rz_(0), angle_focale_(90), fps_(50), ms_par_frame_(static_cast<int>(1.0/fps_ * 1000)), motion_blur_(false) {
 	init(argc, argv);
 }
 
@@ -86,6 +86,12 @@ void gestionnaire_de_scene::motion_blur(bool m) {
 }
 
 void gestionnaire_de_scene::animation() {
+  Matrix rx,ry;
+  rx.setRotate(Quaternion(Vec3f(1.0,0.,0.),rx_));
+  ry.setRotate(Quaternion(Vec3f(0.,1.,0.),ry_));
+
+  rx.mult(ry);
+  
 	// Focale de la camera
 	beginEditCP(camera_);
 		camera_->setFov(deg2rad(angle_focale_));
@@ -96,7 +102,7 @@ void gestionnaire_de_scene::animation() {
 	{
 		Matrix M;
 		M.setTranslate(Vec3f(x_,y_,z_));
-		M.setRotate(Quaternion(Vec3f(rx_,ry_,rz_), rtheta_));
+		M.mult(rx);
 		cam_transform_->setMatrix(M);
 	}
 	endEditCP(instance_->cam_transform_);

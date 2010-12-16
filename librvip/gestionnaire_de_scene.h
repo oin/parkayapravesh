@@ -27,7 +27,6 @@ struct gestionnaire_de_scene {
 	double& rx() { return rx_; }
 	double& ry() { return ry_; }
 	double& rz() { return rz_; }
-	double& rtheta() { return rtheta_; }
 	double& angle_focale() { return angle_focale_; }
 	
 	bool motion_blur() const { return motion_blur_; }
@@ -67,8 +66,8 @@ private:
 	
 	std::string titre_;
 	
-	double x_, y_, z_;
-	double rx_, ry_, rz_, rtheta_;
+  double x_, y_, z_;
+  double rx_, ry_, rz_;
 	double angle_focale_;
 	
 	double fps_;
