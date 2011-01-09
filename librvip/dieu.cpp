@@ -43,6 +43,7 @@ void Dieu::aller_a (float x, float y){
 }
 
 NodePtr Dieu::selectionner(float x, float y){
+	return selection_courante;
   //return gestionnaire_de_scene::instance().getNoeudSur(x,y);
 }
 

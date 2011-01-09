@@ -168,7 +168,11 @@ private:
 
 int main(int argc, char **argv) {
 	gestionnaire_de_scene g(&argc, argv); 
+#ifdef WIN32
+	g.attacher(SceneFileHandler::the().read("data\\contest.wrl"));
+#else
 	g.attacher(SceneFileHandler::the().read("data/contest.wrl"));
+#endif
 	peachtest tuiote_moi_ca(g);
 	g.ajouter_toad(tuiote_moi_ca);
 	g.executer();	
