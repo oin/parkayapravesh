@@ -41,11 +41,15 @@ protected:
 	mario plombier_;
 private:
 	enum { taille_historique_ = 3 };
+protected:
 	int etat_actuel_;
 	double A_, B_, C_;
+private:
 	double seuil_distance_;
 	double tempo_actuelle_;
 	doigt davant_;
+protected:
+	doigt debut_action_;
 };
 
 #endif /* end of include guard: PEACH_H_SVS7187P */

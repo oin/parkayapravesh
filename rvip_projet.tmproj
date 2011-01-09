@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>tuio_testing.src/tuio_testing.cpp</string>
+	<string>librvip/gestionnaire_de_scene.h</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -119,7 +119,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>6</integer>
+			<integer>5</integer>
 		</dict>
 		<key>librvip/dieu.h</key>
 		<dict>
@@ -154,35 +154,51 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>21</integer>
 				<key>line</key>
-				<integer>36</integer>
+				<integer>37</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>23</integer>
+			<integer>19</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>37</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>30</integer>
+				<key>line</key>
+				<integer>37</integer>
+			</dict>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>18</integer>
+				<integer>12</integer>
 				<key>line</key>
-				<integer>91</integer>
+				<integer>394</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>70</integer>
+			<integer>373</integer>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>17</integer>
 				<key>line</key>
 				<integer>71</integer>
 			</dict>
@@ -196,9 +212,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>35</integer>
+				<integer>124</integer>
 				<key>line</key>
-				<integer>19</integer>
+				<integer>11</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -210,28 +226,44 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>50</integer>
+				<integer>27</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>25</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>25</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>25</integer>
+			</dict>
 		</dict>
 		<key>librvip/peach.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>28</integer>
+				<integer>68</integer>
 				<key>line</key>
-				<integer>93</integer>
+				<integer>87</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>69</integer>
+			<integer>63</integer>
 		</dict>
 		<key>librvip/peach.h</key>
 		<dict>
@@ -280,14 +312,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>431</integer>
+				<integer>95</integer>
 				<key>line</key>
-				<integer>24</integer>
+				<integer>94</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>46</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>15</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -341,6 +373,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{657, 136}, {778, 742}}</string>
+	<string>{{379, 73}, {720, 805}}</string>
 </dict>
 </plist>

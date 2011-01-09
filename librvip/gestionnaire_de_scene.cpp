@@ -7,6 +7,32 @@
 #include <ctime>
 
 OSG_USING_NAMESPACE;
+// 
+// OSG::Matrix eulerToMatrix( double rotX, double rotY, double rotZ )
+// {
+//         // ripped from
+//         
+// //http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
+//     double ch = cos(rotX);
+//     double sh = sin(rotX);
+//     double ca = cos(rotY);
+//     double sa = sin(rotY);
+//     double cb = cos(rotZ);
+//     double sb = sin(rotZ);
+// 
+//         Matrix rot;
+//     rot[0][0] = ch * ca;
+//     rot[0][1] = sh*sb - ch*sa*cb;
+//     rot[0][2] = ch*sa*sb + sh*cb;
+//     rot[1][0] = sa;
+//     rot[1][1] = ca*cb;
+//     rot[1][2] = -ca*sb;
+//     rot[2][0] = -sh*ca;
+//     rot[2][1] = sh*sa*cb + ch*sb;
+//     rot[2][2] = -sh*sa*sb + ch*cb;
+// 
+//         return rot;
+// }
 
 gestionnaire_de_scene* gestionnaire_de_scene::instance_ = 0;
 
@@ -85,28 +111,50 @@ void gestionnaire_de_scene::motion_blur(bool m) {
 		faire_clear_accum_ = true;
 }
 
-void gestionnaire_de_scene::animation() {
-  Matrix rx,ry;
-  rx.setRotate(Quaternion(Vec3f(1.0,0.,0.),rx_));
-  ry.setRotate(Quaternion(Vec3f(0.,1.,0.),ry_));
-
-  rx.mult(ry);
-  
+void gestionnaire_de_scene::placer_camera() {
+	// Matrix rx,ry,rz;
+	// rx.setIdentity();
+	// ry.setIdentity();
+	// rz.setIdentity();
+	// 
+	// rx.setRotate(Quaternion(Vec3f(1,0,0),rx_));
+	// ry.setRotate(Quaternion(Vec3f(0,1.0,0.),ry_));
+	// rz.setRotate(Quaternion(Vec3f(0.,0.0,1.),rz_));
+	// // rz.setRotate(Quaternion(Vec3f(0.,0.,1.),rz_));
+	// 
 	// Focale de la camera
 	beginEditCP(camera_);
 		camera_->setFov(deg2rad(angle_focale_));
 	endEditCP(camera_);
-	// Mouvement de la camera
-	beginEditCP(cam_beacon_);
-	beginEditCP(cam_transform_);
-	{
-		Matrix M;
-		M.setTranslate(Vec3f(x_,y_,z_));
-		M.mult(rx);
-		cam_transform_->setMatrix(M);
-	}
-	endEditCP(instance_->cam_transform_);
-	endEditCP(instance_->cam_beacon_);
+	// // Mouvement de la camera
+	// beginEditCP(cam_beacon_);
+	// beginEditCP(cam_beacon2_);
+	// beginEditCP(cam_beacon3_);
+	// beginEditCP(cam_transform_);
+	// beginEditCP(cam_transform2_);
+	// beginEditCP(cam_transform3_);
+	// {
+	// 	Matrix M;
+	// 	M.setTranslate(Vec3f(x_,y_,z_));
+	// 	M.mult(eulerToMatrix(rx_, ry_, rz_));
+	// 	// M.mult(rx);
+	// 	// M.mult(ry);
+	// //	M.mult(rz);
+	// 	cam_transform_->setMatrix(M);
+	// 	cam_transform2_->setMatrix(rx);
+	// 	cam_transform3_->setMatrix(ry);
+	// }
+	// endEditCP(cam_transform_);
+	// endEditCP(cam_transform2_);
+	// endEditCP(cam_transform3_);
+	// endEditCP(cam_beacon_);
+	// endEditCP(cam_beacon2_);
+	// endEditCP(cam_beacon3_);
+	cam_transform_->setMatrix(navigateur_.getMatrix());
+}
+
+void gestionnaire_de_scene::animation() {
+	placer_camera();
 }
 
 int gestionnaire_de_scene::setupGLUT(int* argc, char **argv) {
@@ -196,6 +244,7 @@ void gestionnaire_de_scene::timouze(int) {
 void gestionnaire_de_scene::idle(void) {
 	// Animation personnalisée
 	instance_->animation();
+	instance_->updateHighlight();
 	
 	glutPostRedisplay();
 }
@@ -233,26 +282,44 @@ NodePtr gestionnaire_de_scene::init_root() {
 	endEditCP(noeud_depart_, Node::CoreFieldMask);
 	
 	// Mise en place des beacons
+	cam_beacon3_ = Node::create();
+	cam_beacon2_ = Node::create();
 	cam_beacon_ = Node::create();
 	light_beacon_ = Node::create();
-	beginEditCP(cam_beacon_);
+	cam_transform_ = Transform::create();
+	cam_transform2_ = Transform::create();
+	cam_transform3_ = Transform::create();
+	
+	beginEditCP(cam_beacon3_);
+		cam_beacon3_->setCore(cam_transform3_);
+	endEditCP(cam_beacon3_);
+	
+	beginEditCP(cam_beacon2_);
+		cam_beacon2_->setCore(cam_transform2_);
+		cam_beacon2_->addChild(cam_beacon3_);
+	endEditCP(cam_beacon2_);
+	
+	beginEditCP(cam_beacon_);		
+		cam_beacon_->setCore(cam_transform_);
+		cam_beacon_->addChild(cam_beacon2_);
+	endEditCP(cam_beacon_);
 	// beginEditCP(light_beacon_);
-		cam_transform_ = Transform::create();
 		// light_transform_ = Transform::create();
-		beginEditCP(cam_transform_);
+		// beginEditCP(cam_transform_);
 		// beginEditCP(light_transform_);
-		Matrix M; //, lightM;
-			M.setTranslate(Vec3f(x_,y_,z_));
-			M.setRotate(Quaternion(Vec3f(rx_,ry_,rz_), rtheta_));
-			cam_transform_->setMatrix(M);
+		// Matrix M; //, lightM;
+			// M.setTranslate(Vec3f(x_,y_,z_));
+			// M.setRotate(Quaternion(Vec3f(rx_,ry_,rz_), rtheta_));
+			// cam_transform_->setMatrix(M);
 			// lightM.setTransform(Vec3f(10, 10, 100));
 			// light_transform_->setMatrix(lightM);
-		endEditCP(cam_transform_);
+		// endEditCP(cam_transform_);
 		// endEditCP(light_transform_);
-		cam_beacon_->setCore(cam_transform_);
+
 		// light_beacon_->setCore(light_transform_);
-	endEditCP(cam_beacon_);
 	// endEditCP(light_beacon_);
+	
+	placer_camera();
 	
 	// Mise en place de la caméra
 	beginEditCP(camera_);
@@ -319,5 +386,164 @@ NodePtr gestionnaire_de_scene::init_root() {
 	noeud_lumiere->addChild(noeud_depart_);
 	endEditCP(noeud_lumiere);
 	
+	navigateur_.setFrom(Pnt3f(x_,y_,z_));
+	
 	return scene;
+}
+
+bool gestionnaire_de_scene::point_projete(double x, double y, Pnt3f& pnt) {
+	Line rayon;
+    camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
+	IntersectAction *int_act = IntersectAction::create();
+	int_act->setLine(rayon);
+	int_act->apply(noeud_root_);
+	if(int_act->didHit()) {
+		pnt = int_act->getHitPoint();
+		return true;
+	}
+	return false;
+}
+
+void gestionnaire_de_scene::selectionner(double x, double y) {
+	Line rayon;
+    camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
+	IntersectAction *int_act = IntersectAction::create();
+	int_act->setLine(rayon);
+	int_act->apply(noeud_root_);
+	if(int_act->didHit()) {
+		NodePtr truc_touche = int_act->getHitObject();
+		dernier_hit_point_selection_ = int_act->getHitPoint();
+		// TODO: Bidouiller le truc touché pour récupérer le truc au dessus du truc au dessus
+		selection_ = truc_touche;
+		highlightChanged();
+	}
+}
+
+void gestionnaire_de_scene::highlightChanged() {
+	// init as needed
+    if(_highlightMaterial == NullFC)
+    {
+        _highlightMaterial = SimpleMaterial::create();
+
+        beginEditCP(_highlightMaterial);
+        _highlightMaterial->setDiffuse (Color3f(0,1,0));
+        _highlightMaterial->setLit     (false);
+        endEditCP(_highlightMaterial);
+    }
+    if(_highlightNode == NullFC)
+    {
+        GeoPTypesPtr type = GeoPTypesUI8::create();
+        beginEditCP(type);
+        type->push_back(GL_LINE_STRIP);
+        type->push_back(GL_LINES);
+        endEditCP(type);
+
+        GeoPLengthsPtr lens = GeoPLengthsUI32::create();
+        beginEditCP(lens);
+        lens->push_back(10);
+        lens->push_back(6);
+        endEditCP(lens);
+
+        GeoIndicesUI32Ptr index = GeoIndicesUI32::create();
+        beginEditCP(index);
+        index->editFieldPtr()->push_back(0);
+        index->editFieldPtr()->push_back(1);
+        index->editFieldPtr()->push_back(3);
+        index->editFieldPtr()->push_back(2);
+        index->editFieldPtr()->push_back(0);
+        index->editFieldPtr()->push_back(4);
+        index->editFieldPtr()->push_back(5);
+        index->editFieldPtr()->push_back(7);
+        index->editFieldPtr()->push_back(6);
+        index->editFieldPtr()->push_back(4);
+
+        index->editFieldPtr()->push_back(1);
+        index->editFieldPtr()->push_back(5);
+        index->editFieldPtr()->push_back(2);
+        index->editFieldPtr()->push_back(6);
+        index->editFieldPtr()->push_back(3);
+        index->editFieldPtr()->push_back(7);
+        endEditCP(index);
+
+        _highlightPoints = GeoPositions3f::create();
+        beginEditCP(_highlightPoints);
+        _highlightPoints->push_back(Pnt3f(-1, -1, -1));
+        _highlightPoints->push_back(Pnt3f( 1, -1, -1));
+        _highlightPoints->push_back(Pnt3f(-1,  1, -1));
+        _highlightPoints->push_back(Pnt3f( 1,  1, -1));
+        _highlightPoints->push_back(Pnt3f(-1, -1,  1));
+        _highlightPoints->push_back(Pnt3f( 1, -1,  1));
+        _highlightPoints->push_back(Pnt3f(-1,  1,  1));
+        _highlightPoints->push_back(Pnt3f( 1,  1,  1));
+        endEditCP(_highlightPoints);
+
+        GeometryPtr geo=Geometry::create();
+        beginEditCP(geo);
+        geo->setTypes     (type);
+        geo->setLengths   (lens);
+        geo->setIndices   (index);
+        geo->setPositions (_highlightPoints);
+        geo->setMaterial  (_highlightMaterial);
+        endEditCP(geo);
+        addRefCP(geo);
+
+        _highlightNode = Node::create();
+        beginEditCP(_highlightNode);
+        _highlightNode->setCore(geo);
+        endEditCP(_highlightNode);
+        addRefCP(_highlightNode);
+    }
+
+    // attach the hightlight node to the root if the highlight is active
+    if(selection() != NullFC)
+    {
+        if(_highlightNode->getParent() == NullFC)
+        {
+            beginEditCP(noeud_root_);
+            noeud_root_->addChild(_highlightNode);
+            endEditCP(noeud_root_);
+        }
+    }
+    else
+    {
+        if(_highlightNode->getParent() != NullFC)
+        {
+            beginEditCP(noeud_root_);
+            noeud_root_->subChild(_highlightNode);
+            endEditCP(noeud_root_);
+        }
+
+    }
+    // update the highlight geometry
+    updateHighlight();
+}
+
+void gestionnaire_de_scene::updateHighlight() {
+	if(selection_==NullFC)
+        return;
+
+    // calc the world bbox of the highlight object
+#ifndef OSG_2_PREP
+     DynamicVolume vol;
+#else
+    BoxVolume      vol;
+#endif
+    selection_->getWorldVolume(vol);
+
+    Pnt3f min,max;
+    vol.getBounds(min, max);
+
+    beginEditCP(_highlightPoints);
+    _highlightPoints->setValue(Pnt3f(min[0], min[1], min[2]), 0);
+    _highlightPoints->setValue(Pnt3f(max[0], min[1], min[2]), 1);
+    _highlightPoints->setValue(Pnt3f(min[0], max[1], min[2]), 2);
+    _highlightPoints->setValue(Pnt3f(max[0], max[1], min[2]), 3);
+    _highlightPoints->setValue(Pnt3f(min[0], min[1], max[2]), 4);
+    _highlightPoints->setValue(Pnt3f(max[0], min[1], max[2]), 5);
+    _highlightPoints->setValue(Pnt3f(min[0], max[1], max[2]), 6);
+    _highlightPoints->setValue(Pnt3f(max[0], max[1], max[2]), 7);
+    endEditCP(_highlightPoints);
+
+    beginEditCP(_highlightNode->getCore(), Geometry::PositionsFieldMask);
+    endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
 }

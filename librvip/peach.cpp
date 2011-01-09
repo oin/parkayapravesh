@@ -1,6 +1,6 @@
 #include "peach.h"
 
-peach::peach(int port, double A, double B, double C, double seuil_distance) : client_(port), plombier_(this), etat_actuel_(0), A_(A), B_(B), C_(C), seuil_distance_(seuil_distance), tempo_actuelle_(-1), davant_(doigt::aucun) {
+peach::peach(int port, double A, double B, double C, double seuil_distance) : client_(port), plombier_(this), etat_actuel_(0), A_(A), B_(B), C_(C), seuil_distance_(seuil_distance), tempo_actuelle_(-1), davant_(doigt::aucun), debut_action_(doigt::aucun) {
 	client_.addTuioListener(&plombier_);
 	client_.connect();
 }
@@ -39,7 +39,6 @@ void peach::fais_des_choses() {
 			break;
 		case 7: // wayfinding
 			wayfinding();
-			etat_actuel_ = 0;
 			break;
 		case 8: // sélection
 			selection();
@@ -85,6 +84,7 @@ void peach::avance_automate(evenement_touch_t e) {
 			if(e == e_add) {
 				etat_actuel_ = 1;
 				tempo_actuelle_ = temps();
+				debut_action_ = plombier_.situation().premier_doigt_qui_passe();
 			}
 			break;
 		case 1: // doigt
@@ -153,7 +153,6 @@ void peach::avance_automate(evenement_touch_t e) {
 				mode_orientation(debut);
 			}
 			break;
-		case 7: // wayfinding
 		case 8: // sélection
 		case 9: // incarnation
 		case 99:// reset
@@ -188,6 +187,8 @@ void peach::selection() {
 
 void peach::wayfinding() {
 	std::cout << "Wayfinding" << std::endl;
+	// Fin
+	etat_actuel_ = 0;
 }
 
 void peach::debut_incarnation(peach_t etat) {

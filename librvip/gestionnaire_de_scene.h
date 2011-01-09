@@ -20,18 +20,26 @@ struct gestionnaire_de_scene {
 	void attacher(OSG::NodePtr);
 	virtual void doit_quitter();
 	void ajouter_toad(toad&);
+	int ms_par_frame() { return ms_par_frame_; }
 	
-	double& x() { return x_; }
-	double& y() { return y_; }
-	double& z() { return z_; }
-	double& rx() { return rx_; }
-	double& ry() { return ry_; }
-	double& rz() { return rz_; }
+	// double& x() { return x_; }
+	// 	double& y() { return y_; }
+	// 	double& z() { return z_; }
+	// 	double& rx() { return rx_; }
+	// 	double& ry() { return ry_; }
+	// 	double& rz() { return rz_; }
 	double& angle_focale() { return angle_focale_; }
+	
+	void selectionner(double x, double y);
+	OSG::NodePtr selection() { return selection_; }
+	OSG::Pnt3f hit_point_selection() { return dernier_hit_point_selection_; }
+	
+	OSG::FlyNavigator& navigateur() { return navigateur_; }
 	
 	bool motion_blur() const { return motion_blur_; }
 	void motion_blur(bool m);
 	void toggle_motion_blur() { motion_blur(!motion_blur_); }
+	bool point_projete(double x, double y, OSG::Pnt3f& pnt);
 	OSG::PerspectiveCameraPtr camera() { return camera_; }
 protected:
 	gestionnaire_de_scene() {}
@@ -47,6 +55,7 @@ protected:
 	static void timouze(int);
 	virtual std::string titre() { return titre_; }
 	virtual void animation();
+	virtual void placer_camera();
 	virtual bool souris(int bouton, int etat, int x, int y) { return true; }
 	virtual bool mvt_souris(int x, int y) { return true; }
 	virtual bool frappe_clavier(unsigned char key, int x, int y) { return true; }
@@ -54,21 +63,24 @@ private:
 	int setupGLUT(int* argc, char** argv);
 	
 	OSG::NodePtr noeud_root_;
-	OSG::NodePtr cam_beacon_;
+	OSG::NodePtr cam_beacon_, cam_beacon2_, cam_beacon3_;
 	OSG::NodePtr light_beacon_;
 	OSG::NodePtr noeud_depart_;
-	OSG::TransformPtr cam_transform_;
+	OSG::TransformPtr cam_transform_, cam_transform2_, cam_transform3_;
 	OSG::TransformPtr light_transform_;
 	OSG::WindowPtr fenetre_;
 	OSG::ViewportPtr viewport_;
 	OSG::RenderAction* render_action_;
 	OSG::PerspectiveCameraPtr camera_;
+	OSG::NodePtr selection_, incarnation_;
 	
 	std::string titre_;
 	
-  double x_, y_, z_;
-  double rx_, ry_, rz_;
+	double x_, y_, z_;
+	double rx_, ry_, rz_;
 	double angle_focale_;
+	
+	OSG::FlyNavigator navigateur_;
 	
 	double fps_;
 	int ms_par_frame_;
@@ -81,6 +93,18 @@ private:
 	std::vector<toad*> toads_a_biper_;
 	
 	static gestionnaire_de_scene* instance_;
+	
+	// Gestion du highlight (pompé sur OSGSimpleSceneManager)
+	OSG::NodeRefPtr                   _highlight;
+    OSG::NodePtr                      _highlightNode;
+    OSG::GeoPositions3fPtr            _highlightPoints;
+	OSG::SimpleMaterialPtr    _highlightMaterial;
+	
+	OSG::Pnt3f dernier_hit_point_selection_;
+
+protected:
+	virtual void  highlightChanged(void);
+    virtual void  updateHighlight (void);
 };
 
 #endif /* end of include guard: GESTIONNAIRE_DE_SCENE_H_SHWVIRI4 */
