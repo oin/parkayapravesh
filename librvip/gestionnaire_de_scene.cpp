@@ -3,6 +3,9 @@
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGPointLight.h>
 #include <OpenSG/OSGPassiveViewport.h>
+#include <OpenSG/OSGImage.h>
+#include <OpenSG/OSGImageForeground.h>
+#include <OpenSG/OSGFileGrabForeground.h>
 #include <cstdlib>
 #include <ctime>
 
@@ -91,6 +94,8 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	// Ajoute le viewport à la fenêtre
 	fenetre_->addPort(viewport_);
 	
+	iconeFermer();
+    
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
 	render_action_->setWindow(fenetre_.getCPtr());
@@ -571,4 +576,20 @@ void gestionnaire_de_scene::updateHighlight() {
 
 	beginEditCP(_highlightNode->getCore(), Geometry::PositionsFieldMask);
 	endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
+}
+
+void gestionnaire_de_scene :: iconeFermer(){
+	ImagePtr img = Image::create();
+	beginEditCP(img);
+		img->read("data/iconeFermer.png");
+	endEditCP(img);
+
+	ImageForegroundPtr imgFrg = ImageForeground::create();
+    beginEditCP(imgFrg);
+        imgFrg->addImage(img,Pnt2f(0,0));
+    endEditCP(imgFrg);
+    viewport_->getMFForegrounds()->push_back(imgFrg);
+
+
+
 }
