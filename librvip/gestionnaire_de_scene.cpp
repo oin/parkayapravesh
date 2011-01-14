@@ -91,6 +91,21 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	// Ajoute le viewport à la fenêtre
 	fenetre_->addPort(viewport_);
 	
+		// Mise en place d'un viewport
+	viewport2_ = Viewport::create();
+	beginEditCP(viewport_);
+	{
+		viewport2_->setCamera(camera_);
+		viewport2_->setRoot(noeud_root_);
+		viewport2_->setBackground(bkg);
+		viewport2_->setSize( .5,0,1,1 );
+
+	}
+	endEditCP(viewport2_);
+	
+	// Ajoute le viewport à la fenêtre
+	fenetre_->addPort(viewport_);
+	
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
 	render_action_->setWindow(fenetre_.getCPtr());
@@ -566,4 +581,11 @@ void gestionnaire_de_scene::updateHighlight() {
 
 	beginEditCP(_highlightNode->getCore(), Geometry::PositionsFieldMask);
 	endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
+}
+
+void gestionnaire_de_scene::PersonnViewOn() {
+
+}
+void gestionnaire_de_scene::PersonnViewOff() {
+
 }

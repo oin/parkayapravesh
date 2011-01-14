@@ -41,6 +41,8 @@ struct gestionnaire_de_scene {
 	void toggle_motion_blur() { motion_blur(!motion_blur_); }
 	bool point_projete(double x, double y, OSG::Pnt3f& pnt);
 	OSG::PerspectiveCameraPtr camera() { return camera_; }
+	void PersonnViewOff();
+	void PersonnViewOn();
 protected:
 	gestionnaire_de_scene() {}
 	virtual void init(int*, char**);
@@ -59,6 +61,7 @@ protected:
 	virtual bool souris(int bouton, int etat, int x, int y) { return true; }
 	virtual bool mvt_souris(int x, int y) { return true; }
 	virtual bool frappe_clavier(unsigned char key, int x, int y) { return true; }
+	
 private:
 	int setupGLUT(int* argc, char** argv);
 	
@@ -70,6 +73,7 @@ private:
 	OSG::TransformPtr light_transform_;
 	OSG::WindowPtr fenetre_;
 	OSG::ViewportPtr viewport_;
+	OSG::ViewportPtr viewport2_;
 	OSG::RenderAction* render_action_;
 	OSG::PerspectiveCameraPtr camera_;
 	OSG::NodePtr selection_, incarnation_;
