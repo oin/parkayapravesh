@@ -695,5 +695,6 @@ void gestionnaire_de_scene :: cadre(){
 	beginEditCP(cadreViewport);
 	    cadreViewport->addImage(img,Pnt2f(0,0));
 	endEditCP(cadreViewport);
-	//viewport2_->getMFForegrounds()->push_back(cadreViewport);
+	//cadreViewport.scale(10,10);
+	viewport2_->getMFForegrounds()->push_back(cadreViewport);
 }
