@@ -64,6 +64,7 @@ protected:
 	virtual bool frappe_clavier(unsigned char key, int x, int y) { return true; }
 	
 	void iconeFermer();
+	void Cadre();
 
 private:
 	int setupGLUT(int* argc, char** argv);

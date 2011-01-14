@@ -54,20 +54,9 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 		throw "Une seule scène peut être lancée.";
 	instance_ = this;
 
-	  //Chargement du cadre pour le viewport 3ieme personne
-	ImagePtr cadre = Image::create();
-		
-	beginEditCP(cadre);
-	    cadre->read("data/carre.png");
-	    std::cout<<"okay\n";
-	endEditCP(cadre);
-	
-	ImageForegroundPtr cadreFor = ImageForeground::create();
-	beginEditCP(cadreFor);
-	    cadreFor->addImage(cadre,Pnt2f(0.1,0));
-	endEditCP(cadreFor);
 
-	
+
+
 	// Initialisation de GLUT
 	int id_fenetre = setupGLUT(argc, argv);
 	
@@ -119,7 +108,6 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	// Ajoute le viewport à la fenêtre
 	fenetre_->addPort(viewport_);
 	
-<<<<<<< HEAD
 		// Mise en place d'un viewport
 	viewport2_ = Viewport::create();
 	beginEditCP(viewport2_);
@@ -128,17 +116,15 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 		viewport2_->setRoot(noeud_root_);
 		viewport2_->setBackground(bkg2);
 		viewport2_->setSize(0,0 ,0,0);
-		viewport2_->getMFForegrounds()->push_back(cadreFor);
+// 		viewport2_->getMFForegrounds()->push_back(imgFrg);
 	}
 	endEditCP(viewport2_);
 	
 	// Ajoute le viewport 3ieme personne à la fenêtre
 	fenetre_->addPort(viewport2_);
 	
-=======
 	iconeFermer();
     
->>>>>>> d75fc5ff85518ef347712fbe4799f6465808fb7a
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
 	render_action_->setWindow(fenetre_.getCPtr());
@@ -685,14 +671,15 @@ void gestionnaire_de_scene::updateHighlight() {
 	endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
 }
 
-<<<<<<< HEAD
+
 void gestionnaire_de_scene::PersonnViewOn() {
 //fenetre_->addPort(viewport2_);
    viewport2_->setSize(0.8,0 ,1,.2);
 }
 void gestionnaire_de_scene::PersonnViewOff() {
 viewport2_->setSize(0,0 ,0,0);
-=======
+}
+
 void gestionnaire_de_scene :: iconeFermer(){
 	ImagePtr img = Image::create();
 	beginEditCP(img);
@@ -706,6 +693,18 @@ void gestionnaire_de_scene :: iconeFermer(){
     viewport_->getMFForegrounds()->push_back(imgFrg);
 
 
+}
+void gestionnaire_de_scene :: Cadre(){
+	  //Chargement du cadre pour le viewport 3ieme personne
+	ImagePtr img = Image::create();
+	beginEditCP(img);
+		img->read("data/carre.png");
+		//img->read("data/iconeFermer.png");
+	endEditCP(img);
 
->>>>>>> d75fc5ff85518ef347712fbe4799f6465808fb7a
+	ImageForegroundPtr imgFrg = ImageForeground::create();
+	beginEditCP(imgFrg);
+	    imgFrg->addImage(img,Pnt2f(0,0));
+	endEditCP(imgFrg);
+	
 }
