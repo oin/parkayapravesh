@@ -6,6 +6,7 @@
 #include <OpenSG/OSGImage.h>
 #include <OpenSG/OSGImageForeground.h>
 #include <OpenSG/OSGFileGrabForeground.h>
+#include <OpenSG/OSGSimpleAttachments.h>
 #include <cstdlib>
 #include <ctime>
 
@@ -180,7 +181,7 @@ int gestionnaire_de_scene::setupGLUT(int* argc, char **argv) {
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	glutFullScreen();
+	// glutFullScreen();
 	glutTimerFunc(ms_par_frame_ / 2, gestionnaire_de_scene::timouze, 0);
 	
 	temps_depart_ = glutGet(GLUT_ELAPSED_TIME);
@@ -411,6 +412,7 @@ bool gestionnaire_de_scene::point_projete(double x, double y, Pnt3f& pnt) {
 
 void gestionnaire_de_scene::selectionner(double x, double y) {
 	Line rayon;
+	std::string targets_str("targets");
 	camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
 	IntersectAction *int_act = IntersectAction::create();
 	int_act->setLine(rayon);
@@ -418,14 +420,25 @@ void gestionnaire_de_scene::selectionner(double x, double y) {
 	if(int_act->didHit()) {
 		NodePtr truc_touche = int_act->getHitObject();
 		dernier_hit_point_selection_ = int_act->getHitPoint();
-		// TODO: Bidouiller le truc touché pour récupérer le truc au dessus du truc au dessus
 		// C'est un Geometry
 		if(truc_touche->getCore()->getTypeId() == 410) {
-			
+			NodePtr parent_truc = truc_touche;
+			const Char8* parent_name;
+			for(size_t i=0; i<5; ++i) {
+				truc_touche = parent_truc;
+				if(truc_touche == NullFC)
+					return;
+				parent_truc = truc_touche->getParent();
+				if(parent_truc != NullFC) {
+					parent_name = getName(parent_truc);
+					if(truc_touche->getCore()->getTypeId() == 289 && parent_name && parent_name == targets_str) {
+						selection_ = truc_touche;
+						highlightChanged();
+						break;
+					}
+				}
+			}
 		}
-		selection_ = truc_touche;
-		std::cout << selection_->getCore()->getTypeId() << std::endl;
-		highlightChanged();
 	}
 }
 

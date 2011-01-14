@@ -159,8 +159,8 @@ void peach::avance_automate(evenement_touch_t e) {
 			etat_actuel_ = 0;
 	}
 	
-	if(etat_actuel_ != etat_avant_)
-		std::cout << "Etat " << etat_actuel_ << std::endl;
+	// if(etat_actuel_ != etat_avant_)
+		// std::cout << "Etat " << etat_actuel_ << std::endl;
 }
 
 void peach::mode_orientation(peach_t etat) {
