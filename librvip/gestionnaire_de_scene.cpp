@@ -116,7 +116,6 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 		viewport2_->setRoot(noeud_root_);
 		viewport2_->setBackground(bkg2);
 		viewport2_->setSize(0,0 ,0,0);
-// 		viewport2_->getMFForegrounds()->push_back(imgFrg);
 	}
 	endEditCP(viewport2_);
 	
@@ -124,6 +123,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	fenetre_->addPort(viewport2_);
 	
 	iconeFermer();
+	cadre();
     
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
@@ -192,7 +192,8 @@ void gestionnaire_de_scene::placer_camera() {
 	// endEditCP(cam_beacon2_);
 	// endEditCP(cam_beacon3_);
 	Matrix M;// = navigateur_.getMatrix();
-	M.setTranslate(Vec3f(0,8,25));
+	M.setTranslate(Vec3f(0,2,10));
+	M.mult(navigateur_.getMatrix());
 	M.setRotate(Quaternion(Vec3f(1,0,0), deg2rad(-20)));
 	cam_transform_->setMatrix(navigateur_.getMatrix());
 	//cam2_transform_->setMatrix(navigateur_.getMatrix());
@@ -682,7 +683,7 @@ void gestionnaire_de_scene :: iconeFermer(){
 
 
 }
-void gestionnaire_de_scene :: Cadre(){
+void gestionnaire_de_scene :: cadre(){
 	  //Chargement du cadre pour le viewport 3ieme personne
 	ImagePtr img = Image::create();
 	beginEditCP(img);
@@ -690,9 +691,9 @@ void gestionnaire_de_scene :: Cadre(){
 		//img->read("data/iconeFermer.png");
 	endEditCP(img);
 
-	ImageForegroundPtr imgFrg = ImageForeground::create();
-	beginEditCP(imgFrg);
-	    imgFrg->addImage(img,Pnt2f(0,0));
-	endEditCP(imgFrg);
-	
+	cadreViewport = ImageForeground::create();
+	beginEditCP(cadreViewport);
+	    cadreViewport->addImage(img,Pnt2f(0,0));
+	endEditCP(cadreViewport);
+	//viewport2_->getMFForegrounds()->push_back(cadreViewport);
 }

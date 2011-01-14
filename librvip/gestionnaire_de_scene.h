@@ -63,7 +63,7 @@ protected:
 	virtual bool frappe_clavier(unsigned char key, int x, int y) { return true; }
 	
 	void iconeFermer();
-	void Cadre();
+	void cadre();
 
 private:
 	int setupGLUT(int* argc, char** argv);
@@ -81,7 +81,7 @@ private:
 	OSG::PerspectiveCameraPtr camera_;
 	OSG::PerspectiveCameraPtr camera2_;
 	OSG::NodePtr selection_, incarnation_;
-	
+	OSG::ImageForegroundPtr cadreViewport;	
 	std::string titre_;
 	
 	double x_, y_, z_;
