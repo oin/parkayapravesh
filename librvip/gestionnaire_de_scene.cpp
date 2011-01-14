@@ -414,6 +414,10 @@ void gestionnaire_de_scene::selectionner(double x, double y) {
 		NodePtr truc_touche = int_act->getHitObject();
 		dernier_hit_point_selection_ = int_act->getHitPoint();
 		// TODO: Bidouiller le truc touché pour récupérer le truc au dessus du truc au dessus
+		// C'est un Geometry
+		if(truc_touche->getCore()->getTypeId() == 410) {
+			
+		}
 		selection_ = truc_touche;
 		std::cout << selection_->getCore()->getTypeId() << std::endl;
 		highlightChanged();
