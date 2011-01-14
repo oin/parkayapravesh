@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>librvip/gestionnaire_de_scene.h</string>
+	<string>librvip/gestionnaire_de_scene.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -184,14 +184,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>39</integer>
 				<key>line</key>
-				<integer>394</integer>
+				<integer>446</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>373</integer>
+			<integer>426</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>34</integer>
+				<key>line</key>
+				<integer>446</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>48</integer>
+				<key>line</key>
+				<integer>446</integer>
+			</dict>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.h</key>
 		<dict>
@@ -205,7 +221,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>44</integer>
+			<integer>47</integer>
 		</dict>
 		<key>librvip/mario.cpp</key>
 		<dict>
@@ -345,8 +361,6 @@
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
-	<key>showFileHierarchyPanel</key>
-	<true/>
 	<key>treeState</key>
 	<dict>
 		<key>rvip_projet</key>
@@ -354,22 +368,7 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict>
-				<key>librvip</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-				<key>tuio_testing.src</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-			</dict>
+			<dict/>
 		</dict>
 	</dict>
 	<key>windowFrame</key>

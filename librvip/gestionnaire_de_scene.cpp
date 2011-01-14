@@ -175,7 +175,7 @@ int gestionnaire_de_scene::setupGLUT(int* argc, char **argv) {
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	// glutFullScreen();
+	glutFullScreen();
 	glutTimerFunc(ms_par_frame_ / 2, gestionnaire_de_scene::timouze, 0);
 	
 	temps_depart_ = glutGet(GLUT_ELAPSED_TIME);
@@ -415,6 +415,7 @@ void gestionnaire_de_scene::selectionner(double x, double y) {
 		dernier_hit_point_selection_ = int_act->getHitPoint();
 		// TODO: Bidouiller le truc touché pour récupérer le truc au dessus du truc au dessus
 		selection_ = truc_touche;
+		std::cout << selection_->getCore()->getTypeId() << std::endl;
 		highlightChanged();
 	}
 }
@@ -446,7 +447,7 @@ void gestionnaire_de_scene::highlightChanged() {
 
 		GeoIndicesUI32Ptr index = GeoIndicesUI32::create();
 		beginEditCP(index);
-#ifdef WIN32
+// #ifdef WIN32
 		index->getFieldPtr()->push_back(0);
 		index->getFieldPtr()->push_back(1);
 		index->getFieldPtr()->push_back(3);
@@ -464,25 +465,25 @@ void gestionnaire_de_scene::highlightChanged() {
 		index->getFieldPtr()->push_back(6);
 		index->getFieldPtr()->push_back(3);
 		index->getFieldPtr()->push_back(7);
-#else
-		index->editFieldPtr()->push_back(0);
-		index->editFieldPtr()->push_back(1);
-		index->editFieldPtr()->push_back(3);
-		index->editFieldPtr()->push_back(2);
-		index->editFieldPtr()->push_back(0);
-		index->editFieldPtr()->push_back(4);
-		index->editFieldPtr()->push_back(5);
-		index->editFieldPtr()->push_back(7);
-		index->editFieldPtr()->push_back(6);
-		index->editFieldPtr()->push_back(4);
-
-		index->editFieldPtr()->push_back(1);
-		index->editFieldPtr()->push_back(5);
-		index->editFieldPtr()->push_back(2);
-		index->editFieldPtr()->push_back(6);
-		index->editFieldPtr()->push_back(3);
-		index->editFieldPtr()->push_back(7);
-#endif
+// #else
+// 		index->editFieldPtr()->push_back(0);
+// 		index->editFieldPtr()->push_back(1);
+// 		index->editFieldPtr()->push_back(3);
+// 		index->editFieldPtr()->push_back(2);
+// 		index->editFieldPtr()->push_back(0);
+// 		index->editFieldPtr()->push_back(4);
+// 		index->editFieldPtr()->push_back(5);
+// 		index->editFieldPtr()->push_back(7);
+// 		index->editFieldPtr()->push_back(6);
+// 		index->editFieldPtr()->push_back(4);
+// 
+// 		index->editFieldPtr()->push_back(1);
+// 		index->editFieldPtr()->push_back(5);
+// 		index->editFieldPtr()->push_back(2);
+// 		index->editFieldPtr()->push_back(6);
+// 		index->editFieldPtr()->push_back(3);
+// 		index->editFieldPtr()->push_back(7);
+// #endif
 		endEditCP(index);
 
 		_highlightPoints = GeoPositions3f::create();
