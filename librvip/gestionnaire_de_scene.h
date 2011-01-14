@@ -66,16 +66,17 @@ private:
 	int setupGLUT(int* argc, char** argv);
 	
 	OSG::NodePtr noeud_root_;
-	OSG::NodePtr cam_beacon_, cam_beacon2_, cam_beacon3_;
+	OSG::NodePtr cam_beacon_, cam_beacon2_, cam_beacon3_, cam2_beacon_;
 	OSG::NodePtr light_beacon_;
 	OSG::NodePtr noeud_depart_;
-	OSG::TransformPtr cam_transform_, cam_transform2_, cam_transform3_;
+	OSG::TransformPtr cam_transform_,cam2_transform_, cam_transform2_, cam_transform3_;
 	OSG::TransformPtr light_transform_;
 	OSG::WindowPtr fenetre_;
 	OSG::ViewportPtr viewport_;
 	OSG::ViewportPtr viewport2_;
 	OSG::RenderAction* render_action_;
 	OSG::PerspectiveCameraPtr camera_;
+	OSG::PerspectiveCameraPtr camera2_;
 	OSG::NodePtr selection_, incarnation_;
 	
 	std::string titre_;
