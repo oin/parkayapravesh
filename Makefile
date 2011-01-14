@@ -46,7 +46,7 @@ rvip_objects = $(patsubst %.cpp,%.o,$(wildcard $(rvip_dir)/*.cpp))
 all: $(programmes)
 
 %: %.src/*.cpp librvip.a
-	$(LINK.cpp) $(OUTPUT_OPTION) $^
+	$(LINK.cpp) librvip.a $(OUTPUT_OPTION) $^
 
 librvip.a: $(rvip_objects)
 	$(AR) $(ARFLAGS)s $@ $^
