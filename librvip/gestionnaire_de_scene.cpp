@@ -479,14 +479,20 @@ bool gestionnaire_de_scene::point_projete(double x, double y, Pnt3f& pnt) {
 }
 
 bool gestionnaire_de_scene::est_sur_selection(double x, double y) {
-	// Line rayon;
-	// camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
-	// IntersectAction *int_act = IntersectAction::create();
-	// int_act->setLine(rayon);
-	// int_act->apply(noeud_root_);
-	// if(int_act->didHit()) {
-	// 	return int_act->getHitObject().getCPtr() == selection_.getCPtr();
-	// }
+	Line rayon;
+	if(!camera_ || !viewport_)
+		return false;
+	beginEditCP(camera_);
+	beginEditCP(viewport_);
+	camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
+	IntersectAction *int_act = IntersectAction::create();
+	int_act->setLine(rayon);
+	int_act->apply(noeud_root_);
+	endEditCP(camera_);
+	endEditCP(viewport_);
+	if(int_act->didHit()) {
+		return int_act->getHitObject().getCPtr() == selection_.getCPtr();
+	}
 	return false;
 }
 

@@ -23,9 +23,9 @@ struct peachtest : public peach, public toad {
 	virtual void mode_orientation(peach_t etat) {
 		if(etat == debut) {
 			doigt_original_orientation_ = plombier_.situation().premier_doigt_qui_passe();
-			move_selection_ = g_.est_sur_selection(doigt_original_orientation_.x(), doigt_original_orientation_.y());
 		}
 		else if(etat == en_cours) {
+			move_selection_ = g_.est_sur_selection(doigt_original_orientation_.x(), doigt_original_orientation_.y());
 			luigi& sit = plombier_.situation();
 			doigt le_doigt = sit.premier_doigt_qui_passe();
 			
