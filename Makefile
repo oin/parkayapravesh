@@ -9,7 +9,7 @@ rvip_cppflags = -I$(rvip_dir)
 # lib: tuio
 tuio_dir = libTUIO
 tuio_cppflags = -I$(tuio_dir)/TUIO -I$(tuio_dir)/oscpack
-tuio_ldflags = $(tuio_dir)/libTUIO.a
+tuio_ldflags = 
 
 # lib: opensg
 opensg_libtype ?= dbg
@@ -45,8 +45,8 @@ rvip_objects = $(patsubst %.cpp,%.o,$(wildcard $(rvip_dir)/*.cpp))
 
 all: $(programmes)
 
-%: %.src/*.cpp librvip.a
-	$(LINK.cpp) librvip.a $(OUTPUT_OPTION) $^
+%: %.src/*.cpp librvip.a $(tuio_dir)/libTUIO.a
+	$(LINK.cpp) $(OUTPUT_OPTION) $^
 
 librvip.a: $(rvip_objects)
 	$(AR) $(ARFLAGS)s $@ $^
