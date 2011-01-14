@@ -23,8 +23,7 @@ struct peachtest : public peach, public toad {
 	virtual void mode_orientation(peach_t etat) {
 		if(etat == debut) {
 			doigt_original_orientation_ = plombier_.situation().premier_doigt_qui_passe();
-			if(g_.objet_projete(doigt_original_orientation_.x(), doigt_original_orientation_.y()) == g_.selection())
-				move_selection_ = true;
+			move_selection_ = g_.est_sur_selection(doigt_original_orientation_.x(), doigt_original_orientation_.y());
 		}
 		else if(etat == en_cours) {
 			luigi& sit = plombier_.situation();
@@ -36,7 +35,7 @@ struct peachtest : public peach, public toad {
 			if(!move_selection_)
 				g_.navigateur().rotate(ecart_x *0.5, ecart_y *0.5);
 			else
-				
+				;
 		}
 		else if(etat == fin) {
 			move_selection_ = false;

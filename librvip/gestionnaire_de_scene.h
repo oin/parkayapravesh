@@ -40,7 +40,7 @@ struct gestionnaire_de_scene {
 	void motion_blur(bool m);
 	void toggle_motion_blur() { motion_blur(!motion_blur_); }
 	bool point_projete(double x, double y, OSG::Pnt3f& pnt);
-	OSG::NodePtr objet_projete(double x, double y);
+	bool est_sur_selection(double x, double y);
 	OSG::PerspectiveCameraPtr camera() { return camera_; }
 	void PersonnViewOff();
 	void PersonnViewOn();

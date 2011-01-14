@@ -265,7 +265,7 @@ void gestionnaire_de_scene::affichage_fenetre(void) {
 	
 	// Dessin des viewports
 	instance_->viewport_->render(instance_->render_action_);
-	instance_->viewport2_->render(instance_->render_action_);
+	// instance_->viewport2_->render(instance_->render_action_);
 	
 	if(instance_->motion_blur_) {
 		glAccum(GL_ACCUM, 1 - 0.8f);
@@ -380,7 +380,7 @@ NodePtr gestionnaire_de_scene::init_root() {
 		camera_->setBeacon(cam_beacon_);
 		camera_->setFov(deg2rad(angle_focale_));
 		camera_->setNear(0.1);
-		camera_->setFar(100);
+		camera_->setFar(1000);
 	}
 	endEditCP(camera_);
 	
@@ -394,7 +394,7 @@ NodePtr gestionnaire_de_scene::init_root() {
 	beginEditCP(camera2_);
 	{
 		camera2_->setBeacon(cam2_beacon_);
-		camera2_->setFov(deg2rad(angle_focale_-30));
+		camera2_->setFov(deg2rad(angle_focale_));
 		camera2_->setNear(0.1);
 		camera2_->setFar(100);
 		/*camera2_->setNear( 0.5 );
@@ -478,16 +478,16 @@ bool gestionnaire_de_scene::point_projete(double x, double y, Pnt3f& pnt) {
 	return false;
 }
 
-NodePtr gestionnaire_de_scene::noeud_projete(double x, double y) {
-	Line rayon;
-	camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
-	IntersectAction *int_act = IntersectAction::create();
-	int_act->setLine(rayon);
-	int_act->apply(noeud_root_);
-	if(int_act->didHit()) {
-		return int_act->getHitObject();
-	}
-	return NullFC;
+bool gestionnaire_de_scene::est_sur_selection(double x, double y) {
+	// Line rayon;
+	// camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
+	// IntersectAction *int_act = IntersectAction::create();
+	// int_act->setLine(rayon);
+	// int_act->apply(noeud_root_);
+	// if(int_act->didHit()) {
+	// 	return int_act->getHitObject().getCPtr() == selection_.getCPtr();
+	// }
+	return false;
 }
 
 void gestionnaire_de_scene::selectionner(double x, double y) {
