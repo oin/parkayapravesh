@@ -176,7 +176,7 @@ int gestionnaire_de_scene::setupGLUT(int* argc, char **argv) {
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	// glutFullScreen();
+	glutFullScreen();
 	glutTimerFunc(ms_par_frame_ / 2, gestionnaire_de_scene::timouze, 0);
 	
 	temps_depart_ = glutGet(GLUT_ELAPSED_TIME);
@@ -444,7 +444,7 @@ void gestionnaire_de_scene::highlightChanged() {
 		_highlightMaterial = SimpleMaterial::create();
 
 		beginEditCP(_highlightMaterial);
-		_highlightMaterial->setDiffuse (Color3f(0,1,0));
+		_highlightMaterial->setDiffuse (Color3f(1,0.1,0.1));
 		_highlightMaterial->setLit     (false);
 		endEditCP(_highlightMaterial);
 	}
