@@ -3,6 +3,9 @@
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGPointLight.h>
 #include <OpenSG/OSGPassiveViewport.h>
+#include <OpenSG/OSGImage.h>
+#include <OpenSG/OSGImageForeground.h>
+#include <OpenSG/OSGFileGrabForeground.h>
 #include <OpenSG/OSGSimpleAttachments.h>
 #include <OpenSG/OSGImage.h>
 #include <cstdlib>
@@ -116,6 +119,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	// Ajoute le viewport à la fenêtre
 	fenetre_->addPort(viewport_);
 	
+<<<<<<< HEAD
 		// Mise en place d'un viewport
 	viewport2_ = Viewport::create();
 	beginEditCP(viewport2_);
@@ -131,6 +135,10 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	// Ajoute le viewport 3ieme personne à la fenêtre
 	fenetre_->addPort(viewport2_);
 	
+=======
+	iconeFermer();
+    
+>>>>>>> d75fc5ff85518ef347712fbe4799f6465808fb7a
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
 	render_action_->setWindow(fenetre_.getCPtr());
@@ -665,10 +673,27 @@ void gestionnaire_de_scene::updateHighlight() {
 	endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
 }
 
+<<<<<<< HEAD
 void gestionnaire_de_scene::PersonnViewOn() {
 //fenetre_->addPort(viewport2_);
    viewport2_->setSize(0.8,0 ,1,.2);
 }
 void gestionnaire_de_scene::PersonnViewOff() {
 viewport2_->setSize(0,0 ,0,0);
+=======
+void gestionnaire_de_scene :: iconeFermer(){
+	ImagePtr img = Image::create();
+	beginEditCP(img);
+		img->read("data/iconeFermer.png");
+	endEditCP(img);
+
+	ImageForegroundPtr imgFrg = ImageForeground::create();
+    beginEditCP(imgFrg);
+        imgFrg->addImage(img,Pnt2f(0,0));
+    endEditCP(imgFrg);
+    viewport_->getMFForegrounds()->push_back(imgFrg);
+
+
+
+>>>>>>> d75fc5ff85518ef347712fbe4799f6465808fb7a
 }

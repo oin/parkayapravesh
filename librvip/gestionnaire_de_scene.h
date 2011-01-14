@@ -62,6 +62,8 @@ protected:
 	virtual bool mvt_souris(int x, int y) { return true; }
 	virtual bool frappe_clavier(unsigned char key, int x, int y) { return true; }
 	
+	void iconeFermer();
+
 private:
 	int setupGLUT(int* argc, char** argv);
 	
