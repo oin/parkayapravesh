@@ -42,7 +42,6 @@ struct peachtest : public peach, public toad {
 		if(selec)	
 			g_.pointprojete(debut_action_.x(), debut_action_.y(),);*/
 		
-		
 		if(etat == debut) {
 			doigts_originaux_deplacement_ = plombier_.situation();
 		}

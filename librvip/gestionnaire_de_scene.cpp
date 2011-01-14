@@ -405,6 +405,18 @@ bool gestionnaire_de_scene::point_projete(double x, double y, Pnt3f& pnt) {
 	return false;
 }
 
+NodePtr gestionnaire_de_scene::noeud_projete(double x, double y) {
+	Line rayon;
+	camera_->calcViewRay(rayon, static_cast<osg::Int32>(x * viewport_->getPixelWidth()), static_cast<osg::Int32>(y * viewport_->getPixelHeight()), *viewport_);
+	IntersectAction *int_act = IntersectAction::create();
+	int_act->setLine(rayon);
+	int_act->apply(noeud_root_);
+	if(int_act->didHit()) {
+		return int_act->getHitObject();
+	}
+	return NullFC;
+}
+
 void gestionnaire_de_scene::selectionner(double x, double y) {
 	Line rayon;
 	std::string targets_str("targets");
