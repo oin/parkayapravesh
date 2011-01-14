@@ -4,6 +4,7 @@
 #include <OpenSG/OSGPointLight.h>
 #include <OpenSG/OSGPassiveViewport.h>
 #include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGImage.h>
 #include <cstdlib>
 #include <ctime>
 
@@ -49,6 +50,20 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	if(instance_ != 0)
 		throw "Une seule scène peut être lancée.";
 	instance_ = this;
+
+	  //Chargement du cadre pour le viewport 3ieme personne
+	ImagePtr cadre = Image::create();
+		
+	beginEditCP(cadre);
+	    cadre->read("data/carre.png");
+	    std::cout<<"okay\n";
+	endEditCP(cadre);
+	
+	ImageForegroundPtr cadreFor = ImageForeground::create();
+	beginEditCP(cadreFor);
+	    cadreFor->addImage(cadre,Pnt2f(0.1,0));
+	endEditCP(cadreFor);
+
 	
 	// Initialisation de GLUT
 	int id_fenetre = setupGLUT(argc, argv);
@@ -109,6 +124,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 		viewport2_->setRoot(noeud_root_);
 		viewport2_->setBackground(bkg2);
 		viewport2_->setSize(0,0 ,0,0);
+		viewport2_->getMFForegrounds()->push_back(cadreFor);
 	}
 	endEditCP(viewport2_);
 	
