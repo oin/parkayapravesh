@@ -23,6 +23,8 @@ struct peachtest : public peach, public toad {
 	virtual void mode_orientation(peach_t etat) {
 		if(etat == debut) {
 			doigt_original_orientation_ = plombier_.situation().premier_doigt_qui_passe();
+			if(g_.objet_projete(doigt_original_orientation_.x(), doigt_original_orientation_.y()) == g_.selection())
+				move_selection_ = true;
 		}
 		else if(etat == en_cours) {
 			luigi& sit = plombier_.situation();
@@ -31,10 +33,13 @@ struct peachtest : public peach, public toad {
 			double ecart_x = le_doigt.x() - doigt_original_orientation_.x();
 			double ecart_y = le_doigt.y() - doigt_original_orientation_.y();
 			
-			g_.navigateur().rotate(ecart_x *0.5, ecart_y *0.5);
+			if(!move_selection_)
+				g_.navigateur().rotate(ecart_x *0.5, ecart_y *0.5);
+			else
+				
 		}
 		else if(etat == fin) {
-			
+			move_selection_ = false;
 		}
 	}
 	virtual void mode_deplacement(peach_t etat) {
@@ -166,7 +171,7 @@ private:
 	
 	doigt doigt_original_orientation_;
 	luigi doigts_originaux_deplacement_;
-	bool wayfinding_en_cours_;
+	bool wayfinding_en_cours_, move_selection_;
 	double vitesse_wayfinding_, accel_wayfinding_;
 };
 
