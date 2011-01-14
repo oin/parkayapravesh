@@ -7,6 +7,7 @@
 #include <OpenSG/OSGImageForeground.h>
 #include <OpenSG/OSGFileGrabForeground.h>
 #include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGImage.h>
 #include <cstdlib>
 #include <ctime>
 
@@ -52,6 +53,20 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	if(instance_ != 0)
 		throw "Une seule scène peut être lancée.";
 	instance_ = this;
+
+	  //Chargement du cadre pour le viewport 3ieme personne
+	ImagePtr cadre = Image::create();
+		
+	beginEditCP(cadre);
+	    cadre->read("data/carre.png");
+	    std::cout<<"okay\n";
+	endEditCP(cadre);
+	
+	ImageForegroundPtr cadreFor = ImageForeground::create();
+	beginEditCP(cadreFor);
+	    cadreFor->addImage(cadre,Pnt2f(0.1,0));
+	endEditCP(cadreFor);
+
 	
 	// Initialisation de GLUT
 	int id_fenetre = setupGLUT(argc, argv);
@@ -66,8 +81,9 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	fenetre->init();
 	fenetre_ = fenetre;
 	
-	// Création d'une camera
+	// Création des camera
 	camera_ = PerspectiveCamera::create();
+	camera2_ = PerspectiveCamera::create();
 	
 	// Création du nœud root
 	noeud_root_ = init_root();
@@ -80,6 +96,14 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 		bkg->addLine(Color3f(0.8,0.8,0.8), 1);
 	}
 	endEditCP(bkg);
+	
+	GradientBackgroundPtr bkg2 = GradientBackground::create();
+	beginEditCP(bkg2);
+	{
+		bkg2->addLine(Color3f(0.5,0.5,0.5), 0);
+		bkg2->addLine(Color3f(0.1,0.1,0.1), 1);
+	}
+	endEditCP(bkg2);
 	
 	// Mise en place d'un viewport
 	viewport_ = Viewport::create();
@@ -95,11 +119,32 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	// Ajoute le viewport à la fenêtre
 	fenetre_->addPort(viewport_);
 	
+<<<<<<< HEAD
+		// Mise en place d'un viewport
+	viewport2_ = Viewport::create();
+	beginEditCP(viewport2_);
+	{
+		viewport2_->setCamera(camera2_);
+		viewport2_->setRoot(noeud_root_);
+		viewport2_->setBackground(bkg2);
+		viewport2_->setSize(0,0 ,0,0);
+		viewport2_->getMFForegrounds()->push_back(cadreFor);
+	}
+	endEditCP(viewport2_);
+	
+	// Ajoute le viewport 3ieme personne à la fenêtre
+	fenetre_->addPort(viewport2_);
+	
+=======
 	iconeFermer();
     
+>>>>>>> d75fc5ff85518ef347712fbe4799f6465808fb7a
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
 	render_action_->setWindow(fenetre_.getCPtr());
+	
+ 	PersonnViewOn();
+// 	PersonnViewOff();
 }
 
 void gestionnaire_de_scene::doit_quitter() {
@@ -132,31 +177,42 @@ void gestionnaire_de_scene::placer_camera() {
 	beginEditCP(camera_);
 		camera_->setFov(deg2rad(angle_focale_));
 	endEditCP(camera_);
+	
+	beginEditCP(camera2_);
+		camera2_->setFov(deg2rad(angle_focale_));
+		//camera2_->setNear( 5 );
+		//camera2_->setFar( 500 );
+	endEditCP(camera2_);
+	
 	// // Mouvement de la camera
 	// beginEditCP(cam_beacon_);
 	// beginEditCP(cam_beacon2_);
 	// beginEditCP(cam_beacon3_);
-	// beginEditCP(cam_transform_);
-	// beginEditCP(cam_transform2_);
-	// beginEditCP(cam_transform3_);
-	// {
-	// 	Matrix M;
-	// 	M.setTranslate(Vec3f(x_,y_,z_));
-	// 	M.mult(eulerToMatrix(rx_, ry_, rz_));
-	// 	// M.mult(rx);
-	// 	// M.mult(ry);
-	// //	M.mult(rz);
-	// 	cam_transform_->setMatrix(M);
-	// 	cam_transform2_->setMatrix(rx);
-	// 	cam_transform3_->setMatrix(ry);
-	// }
-	// endEditCP(cam_transform_);
+	/*beginEditCP(cam_transform_);
+
+	{
+	 	Matrix M;
+	 	M.setTranslate(Vec3f(10,20,30));
+	 	M.mult(eulerToMatrix(rx_, ry_, rz_));
+		  M.mult(10);
+		  M.mult(20);
+		  M.mult(3);
+	 	cam_transform_->setMatrix(M);
+	}
+	endEditCP(cam_transform_);*/
 	// endEditCP(cam_transform2_);
 	// endEditCP(cam_transform3_);
 	// endEditCP(cam_beacon_);
 	// endEditCP(cam_beacon2_);
 	// endEditCP(cam_beacon3_);
+	Matrix M;// = navigateur_.getMatrix();
+	M.setTranslate(Vec3f(0,8,25));
+	M.setRotate(Quaternion(Vec3f(1,0,0), deg2rad(-20)));
 	cam_transform_->setMatrix(navigateur_.getMatrix());
+	//cam2_transform_->setMatrix(navigateur_.getMatrix());
+	cam2_transform_->setMatrix(M);
+	
+	
 }
 
 void gestionnaire_de_scene::animation() {
@@ -223,6 +279,7 @@ void gestionnaire_de_scene::affichage_fenetre(void) {
 	
 	// Dessin des viewports
 	instance_->viewport_->render(instance_->render_action_);
+	instance_->viewport2_->render(instance_->render_action_);
 	
 	if(instance_->motion_blur_) {
 		glAccum(GL_ACCUM, 1 - 0.8f);
@@ -291,8 +348,10 @@ NodePtr gestionnaire_de_scene::init_root() {
 	cam_beacon3_ = Node::create();
 	cam_beacon2_ = Node::create();
 	cam_beacon_ = Node::create();
+	cam2_beacon_ = Node::create();
 	light_beacon_ = Node::create();
 	cam_transform_ = Transform::create();
+	cam2_transform_ = Transform::create();
 	cam_transform2_ = Transform::create();
 	cam_transform3_ = Transform::create();
 	
@@ -324,8 +383,10 @@ NodePtr gestionnaire_de_scene::init_root() {
 
 		// light_beacon_->setCore(light_transform_);
 	// endEditCP(light_beacon_);
-	
+
 	placer_camera();
+			
+
 	
 	// Mise en place de la caméra
 	beginEditCP(camera_);
@@ -337,6 +398,26 @@ NodePtr gestionnaire_de_scene::init_root() {
 	}
 	endEditCP(camera_);
 	
+
+	// Mise en place de la caméra 3ieme personne
+	beginEditCP(cam2_beacon_);		
+		cam2_beacon_->setCore(cam2_transform_);
+		cam2_beacon_->addChild(cam_beacon2_);
+	endEditCP(cam2_beacon_);
+
+	beginEditCP(camera2_);
+	{
+		camera2_->setBeacon(cam2_beacon_);
+		camera2_->setFov(deg2rad(angle_focale_-30));
+		camera2_->setNear(0.1);
+		camera2_->setFar(100);
+		/*camera2_->setNear( 0.5 );
+		camera2_->setFar( 8000 );
+		*/
+
+	}
+	endEditCP(camera2_);
+
 	// Création d'une lumière super cool
 	DirectionalLightPtr d_light = DirectionalLight::create();
 	beginEditCP(d_light);
@@ -384,6 +465,7 @@ NodePtr gestionnaire_de_scene::init_root() {
 		scene->addChild(noeud_lumiere);
 		// scene->addChild(noeud_depart_);
 		scene->addChild(cam_beacon_);
+		scene->addChild(cam2_beacon_);
 		// scene->addChild(light_beacon_);
 	}
 	endEditCP(scene, Node::CoreFieldMask | Node::ChildrenFieldMask);
@@ -603,6 +685,14 @@ void gestionnaire_de_scene::updateHighlight() {
 	endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
 }
 
+<<<<<<< HEAD
+void gestionnaire_de_scene::PersonnViewOn() {
+//fenetre_->addPort(viewport2_);
+   viewport2_->setSize(0.8,0 ,1,.2);
+}
+void gestionnaire_de_scene::PersonnViewOff() {
+viewport2_->setSize(0,0 ,0,0);
+=======
 void gestionnaire_de_scene :: iconeFermer(){
 	ImagePtr img = Image::create();
 	beginEditCP(img);
@@ -617,4 +707,5 @@ void gestionnaire_de_scene :: iconeFermer(){
 
 
 
+>>>>>>> d75fc5ff85518ef347712fbe4799f6465808fb7a
 }
