@@ -42,10 +42,8 @@ Les croyances de l'Inde et certaines traditions bouddhistes nous enseignent que 
 
 * **Parkaya pravesh** : la possibilité d'entrer dans un autre corps (_incarnation_)
 * **Vayu gaman siddhi** : la possibilité de se déplacer d'un endroit à un autre en quelques secondes (_wayfinding_)
-* **Dura-darsanam** : la possibilité de tout voir (_carte des lieux_)
+* **Dura-darsanam** : la possibilité de tout voir (_vue de l'objet incarné_)
 * **Laghima** : la possibilité de faire léviter quelque chose (_manipulation des objets à distance_) ou de léviter soi-même (_déplacement sans influence de la gravité_)
-
-Le siddhi le plus insolite, *parkaya pravesh*, est à l'origine du nom de notre projet.
 
 ## Utilisation
 
@@ -60,15 +58,15 @@ En dehors de l'utilisation classique du logiciel avec une table tactile, il est 
 
 * OpenGL
 * GLUT
-* OpenSG
+* OpenSG 1.8
 
 ### Windows
 
-À faire
+Lancer la solution win32/ProjetVS/OpenSGTUIO.sln sous Visual Studio 2010 (ou transférer la solution à des versions antérieures grâce à un outil quelconque). Générer la solution, puis lancer parkayapravesh.exe depuis le répertoire racine du projet.
 
 ### GNU/Linux et Mac OS X
 
-À faire
+Se placer dans le répertoire du projet. Exécuter les commandes suivantes :
 
 	$ make
 	$ ./parkayapravesh
@@ -82,8 +80,6 @@ Ainsi, nous définissons des concepts qui ont pour vocation de préciser le cont
 ## Concepts précisant le contexte
 
 Le contexte dans lequel sont effectués les gestes de mouvement est défini par deux concepts : la sélection et l'incarnation. Chacun est lié à zéro ou un objet particulier de la scène.
-
-En plus de ces concepts, une carte des lieux (en réalité, une vue de dessus sur laquelle sont mis en évidence la position et le cône de vision de la vue de l'utilisateur) est présentée au coin supérieur droit de la surface, afin de préciser la position de l'utilisateur par rapport à l'ensemble de l'environnement.
 
 ### Sélection
 
@@ -103,9 +99,9 @@ Lorsque l'utilisateur est en train d'incarner un objet, une petite vue secondair
 
 Nous définissons les gestes de mouvement comme ceux permettant le contrôle du déplacement et de l'orientation. Nous avons limité notre choix à des gestes permettant le déplacement et l'orientation selon cinq degrés de liberté, ce qui nous paraît suffisant au regard des différentes tâches à réaliser.
 
-Pour définir ces gestes de mouvement, nous nous sommes inspirés de la gestuelle mise au point pour le [DabR](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5069671) (Edelmann, Schilling & Fleck, 2009) dont la caractéristique majeure est l'intuitivité par le couplage direct entre le point de l'image pointé et le doigt.
-
 Les gestes de mouvement sont initiés à la pose d'un ou deux doigts et terminés lorsque tous les doigts sont retirés de la surface tactile.
+
+Nous avons ajouté aux mouvements la notion d'inertie, similaire à ce qui est fait dans certains smartphones ou interfaces graphiques pour le défilement, afin de permettre un plus grand contrôle et une plus grande étendue de mouvement. Le relâchement d'un geste de mouvement avec une grande vitesse instantanée entraîne la continuation amortie du mouvement pendant un court temps. Si un nouveau geste de mouvement est amorcé avant la fin de l'amortissement, ce dernier est arrêté.
 
 ![Axes de déplacement et de rotation](site/axes.png)
 
@@ -143,23 +139,19 @@ Dans tous les autres cas, les gestes de mouvement concernent la vue de l'utilisa
 
 ### Sélection
 
-À faire.
-
-#### Désélection
-
-Puisque la sélection concerne uniquement un objet de la scène qui n'est visible que lorsque la vue de l'utilisateur le présente, nous jugeons que la désélection n'est pas une opération nécessaire.
+Le clic d'un doigt sur un objet permet de le sélectionner.
 
 ### Incarnation
 
-Un appui long d'un doigt sur l'objet sélectionné permet d'incarner un objet.
+Un appui long d'un doigt sur la surface tactile permet d'incarner l'objet actuellement sélectionné.
 
 Le temps nécessaire pour compléter le geste est indiqué visuellement par un effet de _motion blur_ et un déplacement automatique et progressif de la vue de l'utilisateur.
 
-Retirer le doigt avant que le temps soit écoulé annule l'opération et l'indique par le même effet avec un retour très rapide de la vue de l'utilisateur à son point de départ.
+Retirer le doigt avant que le temps soit écoulé annule l'opération et l'indique par le même effet avec un retour instantané de la vue de l'utilisateur à son point de départ.
 
 #### Désincarnation
 
-Un appui court sur la vue secondaire qui indique l'objet actuellement incarné, lorsqu'une incarnation est en cours, permet d'arrêter l'incarnation.
+Le clic d'un doigt sur la vue secondaire qui présente l'objet actuellement incarné, lorsqu'une incarnation est en cours, permet d'arrêter l'incarnation.
 
 ## Un geste avancé : le _wayfinding_
 
