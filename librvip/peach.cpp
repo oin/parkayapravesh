@@ -76,7 +76,7 @@ void peach::avance_automate() {
 }
 
 void peach::avance_automate(evenement_touch_t e) {
-	int etat_avant_ = etat_actuel_;
+	// int etat_avant_ = etat_actuel_;
 	
 	// On fait avancer l'automate
 	switch(etat_actuel_) {

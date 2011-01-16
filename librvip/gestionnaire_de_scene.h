@@ -33,8 +33,18 @@ struct gestionnaire_de_scene {
 	void selectionner(double x, double y);
 	OSG::NodePtr selection() { return selection_; }
 	OSG::Pnt3f hit_point_selection() { return dernier_hit_point_selection_; }
+	OSG::NodePtr incarnation() { return incarnation_; }
+	void incarner();
+	void desincarner();
 	
 	OSG::FlyNavigator& navigateur() { return navigateur_; }
+	void camera_move_x(double dx);
+	void camera_move_z(double dz);
+	void camera_rotation(double x, double y);
+	void camera_move_y(double dy);
+	
+	void selection_rotate(double x, double y);
+	void selection_move(double x, double y, double z);
 	
 	bool motion_blur() const { return motion_blur_; }
 	void motion_blur(bool m);
@@ -42,8 +52,13 @@ struct gestionnaire_de_scene {
 	bool point_projete(double x, double y, OSG::Pnt3f& pnt);
 	bool est_sur_selection(double x, double y);
 	OSG::PerspectiveCameraPtr camera() { return camera_; }
-	void PersonnViewOff();
-	void PersonnViewOn();
+	
+	double& doigt1_x() { return doigt1_x_; }
+	double& doigt1_y() { return doigt1_y_; }
+	double& doigt2_x() { return doigt2_x_; }
+	double& doigt2_y() { return doigt2_y_; }
+	bool& doigt1_set() { return doigt1_set_; }
+	bool& doigt2_set() { return doigt2_set_; }
 protected:
 	gestionnaire_de_scene() {}
 	virtual void init(int*, char**);
@@ -64,7 +79,7 @@ protected:
 	virtual bool frappe_clavier(unsigned char key, int x, int y) { return true; }
 	
 	void iconeFermer();
-	void Cadre();
+	void cadre();
 
 private:
 	int setupGLUT(int* argc, char** argv);
@@ -81,15 +96,27 @@ private:
 	OSG::RenderAction* render_action_;
 	OSG::PerspectiveCameraPtr camera_;
 	OSG::PerspectiveCameraPtr camera2_;
-	OSG::NodePtr selection_, incarnation_;
-	
+	OSG::NodePtr selection_, geonode_selection_, incarnation_;
+	OSG::ImageForegroundPtr cadreViewport;	
 	std::string titre_;
 	
+	OSG::ImageForegroundPtr doigt1_, doigt2_, fond_incarnation_, cadre_haut_, cadre_gauche_;
+	double doigt1_x_, doigt1_y_;
+	double doigt2_x_, doigt2_y_;
+	bool doigt1_set_, doigt2_set_;
+	
 	double x_, y_, z_;
-	double rx_, ry_, rz_;
 	double angle_focale_;
 	
+	double compteur_desincarnation_;
+	
 	OSG::FlyNavigator navigateur_;
+	OSG::Matrix sel_mat_, sel_mat_rot_, sel_mat_mvt_, inc_mat_;
+	OSG::Vec3f cam_up_;
+	
+	double taille_y_inc_, taille_z_inc_;
+	
+	double delta_y_camera_;
 	
 	double fps_;
 	int ms_par_frame_;

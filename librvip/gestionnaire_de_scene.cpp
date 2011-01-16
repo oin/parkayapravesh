@@ -8,40 +8,15 @@
 #include <OpenSG/OSGFileGrabForeground.h>
 #include <OpenSG/OSGSimpleAttachments.h>
 #include <OpenSG/OSGImage.h>
+#include <OpenSG/OSGComponentTransform.h>
 #include <cstdlib>
 #include <ctime>
 
 OSG_USING_NAMESPACE;
-// 
-// OSG::Matrix eulerToMatrix( double rotX, double rotY, double rotZ )
-// {
-//         // ripped from
-//         
-// //http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
-//     double ch = cos(rotX);
-//     double sh = sin(rotX);
-//     double ca = cos(rotY);
-//     double sa = sin(rotY);
-//     double cb = cos(rotZ);
-//     double sb = sin(rotZ);
-// 
-//         Matrix rot;
-//     rot[0][0] = ch * ca;
-//     rot[0][1] = sh*sb - ch*sa*cb;
-//     rot[0][2] = ch*sa*sb + sh*cb;
-//     rot[1][0] = sa;
-//     rot[1][1] = ca*cb;
-//     rot[1][2] = -ca*sb;
-//     rot[2][0] = -sh*ca;
-//     rot[2][1] = sh*sa*cb + ch*sb;
-//     rot[2][2] = -sh*sa*sb + ch*cb;
-// 
-//         return rot;
-// }
 
 gestionnaire_de_scene* gestionnaire_de_scene::instance_ = 0;
 
-gestionnaire_de_scene::gestionnaire_de_scene(int* argc, char** argv, std::string titre) : titre_(titre), x_(0), y_(3.5), z_(10), rx_(0), ry_(0), rz_(0), angle_focale_(90), fps_(50), ms_par_frame_(static_cast<int>(1.0/fps_ * 1000)), motion_blur_(false) {
+gestionnaire_de_scene::gestionnaire_de_scene(int* argc, char** argv, std::string titre) : titre_(titre), x_(0), y_(3.5), z_(10), angle_focale_(90), fps_(50), ms_par_frame_(static_cast<int>(1.0/fps_ * 1000)), motion_blur_(false) {
 	init(argc, argv);
 }
 
@@ -53,10 +28,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	if(instance_ != 0)
 		throw "Une seule scène peut être lancée.";
 	instance_ = this;
-
-
-
-
+	
 	// Initialisation de GLUT
 	int id_fenetre = setupGLUT(argc, argv);
 	
@@ -115,8 +87,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 		viewport2_->setCamera(camera2_);
 		viewport2_->setRoot(noeud_root_);
 		viewport2_->setBackground(bkg2);
-		viewport2_->setSize(0,0 ,0,0);
-// 		viewport2_->getMFForegrounds()->push_back(imgFrg);
+		viewport2_->setSize(0.8,0,1,0.2);
 	}
 	endEditCP(viewport2_);
 	
@@ -124,13 +95,60 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	fenetre_->addPort(viewport2_);
 	
 	iconeFermer();
+	// cadre();
     
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
 	render_action_->setWindow(fenetre_.getCPtr());
 	
- 	PersonnViewOn();
-// 	PersonnViewOff();
+	// Crée des doigts
+	ImagePtr doigtimg = Image::create();
+	doigtimg->read("data/doigt.png");
+
+	doigt1_ = ImageForeground::create();
+	beginEditCP(doigt1_);
+	    doigt1_->addImage(doigtimg,Pnt2f(0,0));
+	endEditCP(doigt1_);
+	doigt2_ = ImageForeground::create();
+	beginEditCP(doigt2_);
+	    doigt2_->addImage(doigtimg,Pnt2f(0,0));
+	endEditCP(doigt2_);
+	
+	viewport_->getMFForegrounds()->push_back(doigt1_);
+	viewport_->getMFForegrounds()->push_back(doigt2_);
+	
+	
+	// Crée le fond pour l'incarnation
+	ImagePtr fondimg = Image::create();
+	fondimg->read("data/fond_incarnation.png");
+
+	fond_incarnation_ = ImageForeground::create();
+	beginEditCP(fond_incarnation_);
+	    fond_incarnation_->addImage(fondimg,Pnt2f(0,1.0));
+	endEditCP(fond_incarnation_);
+	
+	viewport_->getMFForegrounds()->push_back(fond_incarnation_);
+	
+	// Crée le cadre
+	ImagePtr cadreimg1 = Image::create();
+	cadreimg1->read("data/cadre_haut.png");
+
+	cadre_haut_ = ImageForeground::create();
+	beginEditCP(cadre_haut_);
+	    cadre_haut_->addImage(cadreimg1,Pnt2f(0.0,0.992));
+	endEditCP(cadre_haut_);
+	
+	viewport2_->getMFForegrounds()->push_back(cadre_haut_);
+	
+	ImagePtr cadreimg2 = Image::create();
+	cadreimg2->read("data/cadre_gauche.png");
+
+	cadre_gauche_ = ImageForeground::create();
+	beginEditCP(cadre_gauche_);
+	    cadre_gauche_->addImage(cadreimg2,Pnt2f(0.0,0.0));
+	endEditCP(cadre_gauche_);
+	
+	viewport2_->getMFForegrounds()->push_back(cadre_gauche_);
 }
 
 void gestionnaire_de_scene::doit_quitter() {
@@ -148,17 +166,37 @@ void gestionnaire_de_scene::motion_blur(bool m) {
 		faire_clear_accum_ = true;
 }
 
+void gestionnaire_de_scene::camera_move_y(double dy) {
+	Vec3f sup = navigateur_.getUp();
+	sup.normalize();
+	sup *= dy;
+	Matrix M;
+	M.setIdentity();
+	M.setTranslate(sup);
+	Pnt3f nfrom, nat;
+	M.mult(navigateur_.getFrom(), nfrom);
+	M.mult(navigateur_.getAt(), nat);
+	navigateur_.setFrom(nfrom);
+	navigateur_.setAt(nat);
+}
+
+void gestionnaire_de_scene::camera_rotation(double x, double y) {
+	navigateur_.rotate(x, y);
+	Vec3f up = cam_up_; // navigateur_.getUp();
+	Quaternion q;
+	Vec3f sv = navigateur_.getAt() - navigateur_.getFrom();
+	sv.normalize();
+	sv.crossThis(up);
+	sv.normalize();
+	q.setValueAsAxisRad(sv, -y);
+	Matrix M;
+	M.setIdentity();
+	q.getValue(M);
+	M.mult(up, up);
+	cam_up_ = up;
+}
+
 void gestionnaire_de_scene::placer_camera() {
-	// Matrix rx,ry,rz;
-	// rx.setIdentity();
-	// ry.setIdentity();
-	// rz.setIdentity();
-	// 
-	// rx.setRotate(Quaternion(Vec3f(1,0,0),rx_));
-	// ry.setRotate(Quaternion(Vec3f(0,1.0,0.),ry_));
-	// rz.setRotate(Quaternion(Vec3f(0.,0.0,1.),rz_));
-	// // rz.setRotate(Quaternion(Vec3f(0.,0.,1.),rz_));
-	// 
 	// Focale de la camera
 	beginEditCP(camera_);
 		camera_->setFov(deg2rad(angle_focale_));
@@ -170,39 +208,163 @@ void gestionnaire_de_scene::placer_camera() {
 		//camera2_->setFar( 500 );
 	endEditCP(camera2_);
 	
-	// // Mouvement de la camera
-	// beginEditCP(cam_beacon_);
-	// beginEditCP(cam_beacon2_);
-	// beginEditCP(cam_beacon3_);
-	/*beginEditCP(cam_transform_);
-
-	{
-	 	Matrix M;
-	 	M.setTranslate(Vec3f(10,20,30));
-	 	M.mult(eulerToMatrix(rx_, ry_, rz_));
-		  M.mult(10);
-		  M.mult(20);
-		  M.mult(3);
-	 	cam_transform_->setMatrix(M);
-	}
-	endEditCP(cam_transform_);*/
-	// endEditCP(cam_transform2_);
-	// endEditCP(cam_transform3_);
-	// endEditCP(cam_beacon_);
-	// endEditCP(cam_beacon2_);
-	// endEditCP(cam_beacon3_);
-	Matrix M;// = navigateur_.getMatrix();
-	M.setTranslate(Vec3f(0,8,25));
-	M.setRotate(Quaternion(Vec3f(1,0,0), deg2rad(-20)));
 	cam_transform_->setMatrix(navigateur_.getMatrix());
-	//cam2_transform_->setMatrix(navigateur_.getMatrix());
-	cam2_transform_->setMatrix(M);
 	
+	if(incarnation_ != NullFC) {
+		FlyNavigator n;
+		n.set(navigateur_.getMatrix());
+		n.setFrom(navigateur_.getFrom());
+		n.setAt(navigateur_.getAt());
+		n.forward(taille_y_inc_ * 2.2);
+		cam2_transform_->setMatrix(n.getMatrix());
+	}
+}
+
+void gestionnaire_de_scene::selection_move(double x, double y, double z) {
+	static const double q = 0.6;
 	
+	// Translation sur le vecteur side de la caméra
+	Vec3f vs = navigateur_.getFrom() - navigateur_.getAt();
+	vs.crossThis(navigateur_.getUp());
+	vs.normalize();
+	vs *= x * q;
+	
+	// Translation sur le vecteur up de la caméra
+	Vec3f vup = navigateur_.getUp();
+	vup.normalize();
+	vup *= y * q;
+	
+	// Translation sur le vecteur forward de la caméra
+	Vec3f vf = navigateur_.getAt() - navigateur_.getFrom();
+	vf.normalize();
+	vf *= z * q;
+	Matrix tf;
+	tf.setIdentity();
+	tf.setTranslate(vs + vup + vf);
+	
+	sel_mat_mvt_ = tf;
+}
+
+void gestionnaire_de_scene::selection_rotate(double x, double y) {
+	// Rotation autour du vecteur up de la caméra
+	Vec3f vup = cam_up_;
+	Quaternion rot_up;
+	rot_up.setValueAsAxisRad(cam_up_, -x);
+	
+	Matrix mat;
+	mat.setIdentity();
+	rot_up.getValue(mat);
+	
+	// Rotation autour du vecteur side de la caméra
+	Vec3f vs = navigateur_.getAt() - navigateur_.getFrom();
+	vs.normalize();
+	vs.crossThis(vup);
+	vs.normalize();
+	Quaternion rot_side;
+	rot_side.setValueAsAxisRad(vs, y);
+	
+	Matrix m2;
+	m2.setIdentity();
+	rot_side.getValue(m2);
+	
+	mat.mult(m2);
+	sel_mat_rot_ = mat;
 }
 
 void gestionnaire_de_scene::animation() {
 	placer_camera();
+	// Bouge la sélection
+	if(selection_ != NullFC) {
+		beginEditCP(selection_);
+		ComponentTransformPtr p = ComponentTransformPtr::dcast(selection_->getCore());
+		Matrix M;
+		M = sel_mat_mvt_;
+		// M = p->getMatrix();
+		M.mult(p->getMatrix());
+		M.mult(sel_mat_rot_);
+		p->Transform::setMatrix(M);
+		endEditCP(selection_);
+		sel_mat_rot_.setIdentity();
+		sel_mat_mvt_.setIdentity();
+	}
+	// Bouge les doigts
+	if(doigt1_ != NullFC) {
+		doigt1_->editActive() = doigt1_set_;
+		doigt1_->editPositions(0).setValue(Pnt2f(doigt1_x_, 1 - doigt1_y_));
+	}
+	if(doigt2_ != NullFC) {
+		doigt2_->editActive() = doigt2_set_;
+		doigt2_->editPositions(0).setValue(Pnt2f(doigt2_x_, 1 - doigt2_y_));
+	}
+	// Bouge l'objet incarné
+	if(incarnation_ != NullFC) {
+		fond_incarnation_->editActive() = true;
+		FlyNavigator n;
+		n.set(navigateur_.getMatrix());
+		n.setFrom(navigateur_.getFrom());
+		n.setAt(navigateur_.getAt());
+		n.forward(taille_y_inc_);
+		
+		beginEditCP(incarnation_);
+		ComponentTransformPtr p = ComponentTransformPtr::dcast(incarnation_->getCore());
+		p->Transform::setMatrix(n.getMatrix());
+		endEditCP(incarnation_);
+		// inc_mat_ = n.getMatrix();
+	} else {
+		fond_incarnation_->editActive() = false;
+	}
+	// Fait l'animation de désincarnation
+	if(compteur_desincarnation_ > 0) {
+		if(!motion_blur_)
+			motion_blur(true);
+		--compteur_desincarnation_;
+	} else if(compteur_desincarnation_ == 0) {
+		motion_blur(false);
+		glClearColor(0.0, 0.0, 0.0, 0.0);
+		compteur_desincarnation_ = -1;
+	}
+}
+
+void gestionnaire_de_scene::incarner() {
+	if(selection_ == NullFC || incarnation_ != NullFC)
+		return;
+	
+	DynamicVolume vol;
+	Pnt3f m, M;
+	selection_->getWorldVolume(vol);
+	vol.getBounds(m, M);
+	taille_y_inc_ = M[1] - m[1];
+	taille_z_inc_ = M[2] - m[2];
+	
+	// Pnt3f f = navigateur_.getFrom();
+	// Pnt3f a = navigateur_.getAt();
+	
+	// f[1] += taille_y_inc_;
+	// a[1] += taille_y_inc_;
+	
+	// navigateur_.setFrom(f);
+	// navigateur_.setAt(a);
+	
+	incarnation_ = selection_;
+
+	selection_ = NullFC;
+	geonode_selection_ = NullFC;
+	highlightChanged();
+}
+
+void gestionnaire_de_scene::desincarner() {
+	if(incarnation_ == NullFC)
+		return;
+	
+	// Place la caméra 1 à la place de la caméra 2
+	navigateur_.forward(taille_y_inc_ * 2.2);
+	
+	incarnation_ = NullFC;
+	
+	// Truc de ouf
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+	faire_clear_accum_ = true;
+	compteur_desincarnation_ = 10;
 }
 
 int gestionnaire_de_scene::setupGLUT(int* argc, char **argv) {
@@ -224,6 +386,7 @@ int gestionnaire_de_scene::setupGLUT(int* argc, char **argv) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glutFullScreen();
+	glutSetCursor(GLUT_CURSOR_NONE);
 	glutTimerFunc(ms_par_frame_ / 2, gestionnaire_de_scene::timouze, 0);
 	
 	temps_depart_ = glutGet(GLUT_ELAPSED_TIME);
@@ -237,8 +400,8 @@ void gestionnaire_de_scene::clavier(unsigned char key, int x, int y) {
 		// Action par défaut
 		if(key == 27) { // ECHAP
 			instance_->doit_quitter();
-		} else if(key == 'b')
-			instance_->toggle_motion_blur();
+		} //else if(key == 'b')
+			//instance_->toggle_motion_blur();
 	}
 }
 
@@ -265,7 +428,8 @@ void gestionnaire_de_scene::affichage_fenetre(void) {
 	
 	// Dessin des viewports
 	instance_->viewport_->render(instance_->render_action_);
-	// instance_->viewport2_->render(instance_->render_action_);
+	if(instance_->incarnation_ != NullFC)
+		instance_->viewport2_->render(instance_->render_action_);
 	
 	if(instance_->motion_blur_) {
 		glAccum(GL_ACCUM, 1 - 0.8f);
@@ -354,25 +518,8 @@ NodePtr gestionnaire_de_scene::init_root() {
 		cam_beacon_->setCore(cam_transform_);
 		cam_beacon_->addChild(cam_beacon2_);
 	endEditCP(cam_beacon_);
-	// beginEditCP(light_beacon_);
-		// light_transform_ = Transform::create();
-		// beginEditCP(cam_transform_);
-		// beginEditCP(light_transform_);
-		// Matrix M; //, lightM;
-			// M.setTranslate(Vec3f(x_,y_,z_));
-			// M.setRotate(Quaternion(Vec3f(rx_,ry_,rz_), rtheta_));
-			// cam_transform_->setMatrix(M);
-			// lightM.setTransform(Vec3f(10, 10, 100));
-			// light_transform_->setMatrix(lightM);
-		// endEditCP(cam_transform_);
-		// endEditCP(light_transform_);
-
-		// light_beacon_->setCore(light_transform_);
-	// endEditCP(light_beacon_);
 
 	placer_camera();
-			
-
 	
 	// Mise en place de la caméra
 	beginEditCP(camera_);
@@ -415,20 +562,6 @@ NodePtr gestionnaire_de_scene::init_root() {
 		d_light->setBeacon(cam_beacon_);
 	}
 	endEditCP(d_light);
-	// PointLightPtr d_light = PointLight::create();
-	// 	beginEditCP(d_light);
-	// 	{
-	// 		d_light->setConstantAttenuation(1);
-	// 		d_light->setLinearAttenuation(0);
-	// 		d_light->setQuadraticAttenuation(0);
-	// 		
-	// 		d_light->setDiffuse(Color4f(1,1,1,1));
-	// 		d_light->setAmbient(Color4f(0.2, 0.2, 0.2, 1));
-	// 		d_light->setSpecular(Color4f(1,1,1,1));
-	// 		
-	// 		d_light->setBeacon(light_beacon_);
-	// 	}
-	// 	endEditCP(d_light);
 	
 	// Création d'un nœud pour la lumière trop cool
 	NodePtr noeud_lumiere = Node::create();
@@ -449,10 +582,8 @@ NodePtr gestionnaire_de_scene::init_root() {
 	beginEditCP(scene, Node::CoreFieldMask | Node::ChildrenFieldMask);
 	{
 		scene->addChild(noeud_lumiere);
-		// scene->addChild(noeud_depart_);
 		scene->addChild(cam_beacon_);
 		scene->addChild(cam2_beacon_);
-		// scene->addChild(light_beacon_);
 	}
 	endEditCP(scene, Node::CoreFieldMask | Node::ChildrenFieldMask);
 	
@@ -461,6 +592,7 @@ NodePtr gestionnaire_de_scene::init_root() {
 	endEditCP(noeud_lumiere);
 	
 	navigateur_.setFrom(Pnt3f(x_,y_,z_));
+	cam_up_ = navigateur_.getUp();
 	
 	return scene;
 }
@@ -491,7 +623,7 @@ bool gestionnaire_de_scene::est_sur_selection(double x, double y) {
 	endEditCP(camera_);
 	endEditCP(viewport_);
 	if(int_act->didHit()) {
-		return int_act->getHitObject().getCPtr() == selection_.getCPtr();
+		return int_act->getHitObject().getCPtr() == geonode_selection_.getCPtr();
 	}
 	return false;
 }
@@ -505,6 +637,7 @@ void gestionnaire_de_scene::selectionner(double x, double y) {
 	int_act->apply(noeud_root_);
 	if(int_act->didHit()) {
 		NodePtr truc_touche = int_act->getHitObject();
+		NodePtr geo_touche = truc_touche;
 		dernier_hit_point_selection_ = int_act->getHitPoint();
 		// C'est un Geometry
 		if(truc_touche->getCore()->getTypeId() == 410) {
@@ -518,14 +651,26 @@ void gestionnaire_de_scene::selectionner(double x, double y) {
 				if(parent_truc != NullFC) {
 					parent_name = getName(parent_truc);
 					if(truc_touche->getCore()->getTypeId() == 289 && parent_name && parent_name == targets_str) {
+						if(truc_touche->getNChildren() == 1 && truc_touche->getChild(0) != NullFC && truc_touche->getChild(0)->getCore()->getTypeId() == 289)
+							truc_touche = truc_touche->getChild(0);
+						// Sélection qui change !!
 						selection_ = truc_touche;
+						geonode_selection_ = geo_touche;
 						highlightChanged();
-						break;
+						ComponentTransformPtr p =  ComponentTransformPtr::dcast(selection_->getCore());
+						sel_mat_ = p->getMatrix();
+						return;
 					}
 				}
 			}
 		}
 	}
+	
+	// Pas de sélection
+	selection_ = NullFC;
+	geonode_selection_ = NullFC;
+	highlightChanged();
+	sel_mat_.setIdentity();
 }
 
 void gestionnaire_de_scene::highlightChanged() {
@@ -555,7 +700,7 @@ void gestionnaire_de_scene::highlightChanged() {
 
 		GeoIndicesUI32Ptr index = GeoIndicesUI32::create();
 		beginEditCP(index);
-// #ifdef WIN32
+
 		index->getFieldPtr()->push_back(0);
 		index->getFieldPtr()->push_back(1);
 		index->getFieldPtr()->push_back(3);
@@ -573,25 +718,7 @@ void gestionnaire_de_scene::highlightChanged() {
 		index->getFieldPtr()->push_back(6);
 		index->getFieldPtr()->push_back(3);
 		index->getFieldPtr()->push_back(7);
-// #else
-// 		index->editFieldPtr()->push_back(0);
-// 		index->editFieldPtr()->push_back(1);
-// 		index->editFieldPtr()->push_back(3);
-// 		index->editFieldPtr()->push_back(2);
-// 		index->editFieldPtr()->push_back(0);
-// 		index->editFieldPtr()->push_back(4);
-// 		index->editFieldPtr()->push_back(5);
-// 		index->editFieldPtr()->push_back(7);
-// 		index->editFieldPtr()->push_back(6);
-// 		index->editFieldPtr()->push_back(4);
-// 
-// 		index->editFieldPtr()->push_back(1);
-// 		index->editFieldPtr()->push_back(5);
-// 		index->editFieldPtr()->push_back(2);
-// 		index->editFieldPtr()->push_back(6);
-// 		index->editFieldPtr()->push_back(3);
-// 		index->editFieldPtr()->push_back(7);
-// #endif
+		
 		endEditCP(index);
 
 		_highlightPoints = GeoPositions3f::create();
@@ -677,16 +804,7 @@ void gestionnaire_de_scene::updateHighlight() {
 	endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
 }
 
-
-void gestionnaire_de_scene::PersonnViewOn() {
-//fenetre_->addPort(viewport2_);
-   viewport2_->setSize(0.8,0 ,1,.2);
-}
-void gestionnaire_de_scene::PersonnViewOff() {
-viewport2_->setSize(0,0 ,0,0);
-}
-
-void gestionnaire_de_scene :: iconeFermer(){
+void gestionnaire_de_scene::iconeFermer(){
 	ImagePtr img = Image::create();
 	beginEditCP(img);
 		img->read("data/iconeFermer.png");
@@ -700,7 +818,7 @@ void gestionnaire_de_scene :: iconeFermer(){
 
 
 }
-void gestionnaire_de_scene :: Cadre(){
+void gestionnaire_de_scene::cadre(){
 	  //Chargement du cadre pour le viewport 3ieme personne
 	ImagePtr img = Image::create();
 	beginEditCP(img);
@@ -713,4 +831,10 @@ void gestionnaire_de_scene :: Cadre(){
 	    imgFrg->addImage(img,Pnt2f(0,0));
 	endEditCP(imgFrg);
 	
+	cadreViewport = ImageForeground::create();
+	beginEditCP(cadreViewport);
+	    cadreViewport->addImage(img,Pnt2f(0,0));
+	endEditCP(cadreViewport);
+	//cadreViewport.scale(10,10);
+	viewport2_->getMFForegrounds()->push_back(cadreViewport);
 }

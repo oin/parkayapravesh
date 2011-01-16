@@ -8,7 +8,7 @@
 const double A_par_defaut = 100;
 const double B_par_defaut = 700;
 const double C_par_defaut = 2000;
-const double seuil_distance_par_defaut = 0.05;
+const double seuil_distance_par_defaut = 0.02;
 
 class graphe_incoherent {};
 
@@ -35,6 +35,7 @@ protected:
 	virtual void debut_incarnation(peach_t);
 	virtual void incarnation();
 	virtual double temps() { return std::clock() * 1000.0 / CLOCKS_PER_SEC; }
+	virtual int etat_actuel() { return etat_actuel_; }
 private:
 	TUIO::TuioClient client_;
 protected:

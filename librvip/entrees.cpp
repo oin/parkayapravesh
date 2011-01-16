@@ -74,8 +74,10 @@ doigt& luigi::premier_doigt_qui_passe() {
 doigt luigi::point_median() {
 	float x_med = (doigt1_.x() + doigt2_.x()) / 2;
 	float y_med = (doigt2_.x() + doigt2_.y()) / 2;
+	float v_med = (doigt2_.vitesse() + doigt2_.vitesse()) / 2;
+	float a_med = (doigt2_.acceleration() + doigt2_.acceleration()) / 2;
 	
-	return doigt(x_med, y_med, doigt1_.id() + doigt2_.id());
+	return doigt(x_med, y_med, doigt1_.id() + doigt2_.id(), v_med, a_med);
 }
 
 float luigi::longueur() {
