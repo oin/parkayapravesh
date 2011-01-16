@@ -45,6 +45,7 @@ struct gestionnaire_de_scene {
 	
 	void selection_rotate(double x, double y);
 	void selection_move(double x, double y, double z);
+	void maj_pos_selection();
 	
 	bool motion_blur() const { return motion_blur_; }
 	void motion_blur(bool m);

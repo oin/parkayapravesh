@@ -243,6 +243,8 @@ void gestionnaire_de_scene::selection_move(double x, double y, double z) {
 	tf.setTranslate(vs + vup + vf);
 	
 	sel_mat_mvt_ = tf;
+	
+	maj_pos_selection();
 }
 
 void gestionnaire_de_scene::selection_rotate(double x, double y) {
@@ -269,6 +271,14 @@ void gestionnaire_de_scene::selection_rotate(double x, double y) {
 	
 	mat.mult(m2);
 	sel_mat_rot_ = mat;
+}
+
+void gestionnaire_de_scene::maj_pos_selection() {
+	DynamicVolume vol;
+	Pnt3f m;
+	selection_->getWorldVolume(vol);
+	vol.getCenter(m);
+	dernier_hit_point_selection_ = m;
 }
 
 void gestionnaire_de_scene::animation() {

@@ -107,34 +107,6 @@
 				<integer>24</integer>
 			</dict>
 		</dict>
-		<key>librvip/dieu.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>5</integer>
-		</dict>
-		<key>librvip/dieu.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>librvip/entrees.cpp</key>
 		<dict>
 			<key>caret</key>
@@ -184,44 +156,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>39</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>446</integer>
+				<integer>622</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>426</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>34</integer>
-				<key>line</key>
-				<integer>446</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>48</integer>
-				<key>line</key>
-				<integer>446</integer>
-			</dict>
+			<integer>603</integer>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>17</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>71</integer>
+				<integer>46</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>47</integer>
+			<integer>26</integer>
 		</dict>
 		<key>librvip/mario.cpp</key>
 		<dict>
@@ -323,20 +279,6 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>tuio_testing.src/tuio_testing.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>95</integer>
-				<key>line</key>
-				<integer>94</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
@@ -350,17 +292,16 @@
 		<string>libTUIO/TUIO/TuioListener.h</string>
 		<string>librvip/mario.cpp</string>
 		<string>libTUIO/TUIO/TuioClient.h</string>
-		<string>tuio_testing.src/tuio_testing.cpp</string>
 		<string>librvip/toad.h</string>
 		<string>librvip/peach.cpp</string>
-		<string>librvip/dieu.h</string>
-		<string>librvip/dieu.cpp</string>
 		<string>librvip/entrees.cpp</string>
 		<string>librvip/gestionnaire_de_scene.cpp</string>
 		<string>librvip/rvip.h</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
+	<key>showFileHierarchyPanel</key>
+	<true/>
 	<key>treeState</key>
 	<dict>
 		<key>rvip_projet</key>
@@ -368,7 +309,15 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict/>
+			<dict>
+				<key>librvip</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
 		</dict>
 	</dict>
 	<key>windowFrame</key>
