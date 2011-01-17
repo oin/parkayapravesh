@@ -97,7 +97,7 @@ L'incarnation est un autre moyen de préciser l'objet concerné par certaines ac
 
 Différentes cultures de par le monde présentent souvent des concepts très similaires à l'incarnation dans le folklore, la religion ou la spiritualité, ainsi nous pensons que l'acquisition de cette notion peut se faire très rapidement pour une majorité d'utilisateurs.
 
-Lorsque l'utilisateur est en train d'incarner un objet, une petite vue secondaire sur l'environnement virtuel est affichée en bas à gauche de la surface. Elle suit l'objet actuellement incarné et le présente à la troisième personne. Lors de la désincarnation, cette vue secondaire devient la vue principale et disparaît.
+Lorsque l'utilisateur est en train d'incarner un objet, une petite vue secondaire sur l'environnement virtuel est affichée en bas à droite de l'écran. Elle suit l'objet actuellement incarné et le présente à la troisième personne. Lors de la désincarnation, cette vue secondaire devient la vue principale et disparaît.
 
 ## Gestes de mouvement
 
