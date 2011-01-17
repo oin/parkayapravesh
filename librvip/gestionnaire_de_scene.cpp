@@ -96,7 +96,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	
 	iconeFermer();
 	// cadre();
-    
+	
 	// Crée une action de rendu
 	render_action_ = RenderAction::create();
 	render_action_->setWindow(fenetre_.getCPtr());
@@ -111,11 +111,11 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 
 	doigt1_ = ImageForeground::create();
 	beginEditCP(doigt1_);
-	    doigt1_->addImage(doigtimg,Pnt2f(0,0));
+		doigt1_->addImage(doigtimg,Pnt2f(0,0));
 	endEditCP(doigt1_);
 	doigt2_ = ImageForeground::create();
 	beginEditCP(doigt2_);
-	    doigt2_->addImage(doigtimg,Pnt2f(0,0));
+		doigt2_->addImage(doigtimg,Pnt2f(0,0));
 	endEditCP(doigt2_);
 	
 	viewport_->getMFForegrounds()->push_back(doigt1_);
@@ -132,7 +132,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 
 	fond_incarnation_ = ImageForeground::create();
 	beginEditCP(fond_incarnation_);
-	    fond_incarnation_->addImage(fondimg,Pnt2f(0,1.0));
+		fond_incarnation_->addImage(fondimg,Pnt2f(0,1.0));
 	endEditCP(fond_incarnation_);
 	
 	viewport_->getMFForegrounds()->push_back(fond_incarnation_);
@@ -147,7 +147,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 
 	cadre_haut_ = ImageForeground::create();
 	beginEditCP(cadre_haut_);
-	    cadre_haut_->addImage(cadreimg1,Pnt2f(0.0,0.992));
+		cadre_haut_->addImage(cadreimg1,Pnt2f(0.0,0.992));
 	endEditCP(cadre_haut_);
 	
 	viewport2_->getMFForegrounds()->push_back(cadre_haut_);
@@ -161,7 +161,7 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 
 	cadre_gauche_ = ImageForeground::create();
 	beginEditCP(cadre_gauche_);
-	    cadre_gauche_->addImage(cadreimg2,Pnt2f(0.0,0.0));
+		cadre_gauche_->addImage(cadreimg2,Pnt2f(0.0,0.0));
 	endEditCP(cadre_gauche_);
 	
 	viewport2_->getMFForegrounds()->push_back(cadre_gauche_);
@@ -666,7 +666,8 @@ void gestionnaire_de_scene::selectionner(double x, double y) {
 		NodePtr geo_touche = truc_touche;
 		dernier_hit_point_selection_ = int_act->getHitPoint();
 		// C'est un Geometry
-		if(truc_touche->getCore()->getTypeId() == 410) {
+		std::cout << (truc_touche->getCore()->getType() == Geometry::getClassType()) << std::endl;
+		if(truc_touche->getCore()->getType().isDerivedFrom(Geometry::getClassType())) {
 			NodePtr parent_truc = truc_touche;
 			const Char8* parent_name;
 			for(size_t i=0; i<5; ++i) {
@@ -676,8 +677,8 @@ void gestionnaire_de_scene::selectionner(double x, double y) {
 				parent_truc = truc_touche->getParent();
 				if(parent_truc != NullFC) {
 					parent_name = getName(parent_truc);
-					if(truc_touche->getCore()->getTypeId() == 289 && parent_name && parent_name == targets_str) {
-						if(truc_touche->getNChildren() == 1 && truc_touche->getChild(0) != NullFC && truc_touche->getChild(0)->getCore()->getTypeId() == 289)
+					if(truc_touche->getCore()->getType().isDerivedFrom(ComponentTransform::getClassType()) && parent_name && parent_name == targets_str) {
+						if(truc_touche->getNChildren() == 1 && truc_touche->getChild(0) != NullFC && truc_touche->getChild(0)->getCore()->getType().isDerivedFrom(ComponentTransform::getClassType()))
 							truc_touche = truc_touche->getChild(0);
 						// Sélection qui change !!
 						selection_ = truc_touche;
@@ -841,10 +842,10 @@ void gestionnaire_de_scene::iconeFermer(){
 	endEditCP(img);
 
 	ImageForegroundPtr imgFrg = ImageForeground::create();
-    beginEditCP(imgFrg);
-        imgFrg->addImage(img,Pnt2f(0,0));
-    endEditCP(imgFrg);
-    viewport_->getMFForegrounds()->push_back(imgFrg);
+	beginEditCP(imgFrg);
+		imgFrg->addImage(img,Pnt2f(0,0));
+	endEditCP(imgFrg);
+	viewport_->getMFForegrounds()->push_back(imgFrg);
 
 
 }
@@ -862,12 +863,12 @@ void gestionnaire_de_scene::cadre(){
 
 	ImageForegroundPtr imgFrg = ImageForeground::create();
 	beginEditCP(imgFrg);
-	    imgFrg->addImage(img,Pnt2f(0,0));
+		imgFrg->addImage(img,Pnt2f(0,0));
 	endEditCP(imgFrg);
 	
 	cadreViewport = ImageForeground::create();
 	beginEditCP(cadreViewport);
-	    cadreViewport->addImage(img,Pnt2f(0,0));
+		cadreViewport->addImage(img,Pnt2f(0,0));
 	endEditCP(cadreViewport);
 	//cadreViewport.scale(10,10);
 	viewport2_->getMFForegrounds()->push_back(cadreViewport);
