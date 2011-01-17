@@ -299,16 +299,16 @@ void gestionnaire_de_scene::animation() {
 	}
 	// Bouge les doigts
 	if(doigt1_ != NullFC) {
-		doigt1_->editActive() = doigt1_set_;
-		doigt1_->editPositions(0).setValue(Pnt2f(doigt1_x_, 1 - doigt1_y_));
+		doigt1_->setActive(doigt1_set_);
+		doigt1_->getPositions(0).setValue(Pnt2f(doigt1_x_, 1 - doigt1_y_));
 	}
 	if(doigt2_ != NullFC) {
-		doigt2_->editActive() = doigt2_set_;
-		doigt2_->editPositions(0).setValue(Pnt2f(doigt2_x_, 1 - doigt2_y_));
+		doigt2_->setActive(doigt2_set_);
+		doigt2_->getPositions(0).setValue(Pnt2f(doigt2_x_, 1 - doigt2_y_));
 	}
 	// Bouge l'objet incarné
 	if(incarnation_ != NullFC) {
-		fond_incarnation_->editActive() = true;
+		fond_incarnation_->setActive(true);
 		FlyNavigator n;
 		n.set(navigateur_.getMatrix());
 		n.setFrom(navigateur_.getFrom());
@@ -321,7 +321,7 @@ void gestionnaire_de_scene::animation() {
 		endEditCP(incarnation_);
 		// inc_mat_ = n.getMatrix();
 	} else {
-		fond_incarnation_->editActive() = false;
+		fond_incarnation_->setActive(false);
 	}
 	// Fait l'animation de désincarnation
 	if(compteur_desincarnation_ > 0) {

@@ -11,12 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\librvip\dieu.cpp" />
     <ClCompile Include="..\..\librvip\entrees.cpp" />
     <ClCompile Include="..\..\librvip\gestionnaire_de_scene.cpp" />
     <ClCompile Include="..\..\librvip\mario.cpp" />
     <ClCompile Include="..\..\librvip\peach.cpp" />
-    <ClCompile Include="..\..\tuio_testing.src\tuio_testing.cpp" />
+    <ClCompile Include="..\..\parkayapravesh.src\parkayapravesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\librvip\dieu.h" />

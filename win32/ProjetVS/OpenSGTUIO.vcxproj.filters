@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\librvip\dieu.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\librvip\entrees.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -30,7 +27,7 @@
     <ClCompile Include="..\..\librvip\peach.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\tuio_testing.src\tuio_testing.cpp">
+    <ClCompile Include="..\..\parkayapravesh.src\parkayapravesh.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

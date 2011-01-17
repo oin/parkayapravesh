@@ -14,11 +14,10 @@ int signe(double n) {
 }
 
 struct inertie {
-	static const double v_defaut = 0.01;
 	
-	inertie(double x = 0, double v = v_defaut) : x_(x), v_(v) {}
+	inertie(double x = 0, double v = 0.01) : x_(x), v_(v) {}
 	void reset(double x = 0) { x_ = x; }
-	void vitesse(double v = v_defaut) { v_ = v; }
+	void vitesse(double v = 0.01) { v_ = v; }
 	void move() {
 		if(x_ < 0)
 			x_ = std::min(x_ + v_, 0.0);
