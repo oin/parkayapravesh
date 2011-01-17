@@ -45,6 +45,9 @@ rvip_objects = $(patsubst %.cpp,%.o,$(wildcard $(rvip_dir)/*.cpp))
 
 all: $(programmes)
 
+$(tuio_dir)/libTUIO.a:
+	make --directory=$(tuio_dir)
+
 %: %.src/*.cpp librvip.a $(tuio_dir)/libTUIO.a
 	$(LINK.cpp) $(OUTPUT_OPTION) $^
 
