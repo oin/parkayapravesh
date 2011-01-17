@@ -9,6 +9,7 @@ Parkayapravesh est le projet de l'UE **Réalité virtuelle, interaction et perce
 * Laetitia Letoupin
 * Yvain Tisserand
 
+![Aperçu du projet](http://jonathan.aceituno.etu.u-bordeaux1.fr/rvip1.png)
 
 ## Objectif général du projet
 
@@ -105,7 +106,6 @@ Les gestes de mouvement sont initiés à la pose d'un ou deux doigts et terminé
 
 Nous avons ajouté aux mouvements la notion d'inertie, similaire à ce qui est fait dans certains smartphones ou interfaces graphiques pour le défilement, afin de permettre un plus grand contrôle et une plus grande étendue de mouvement. Le relâchement d'un geste de mouvement avec une grande vitesse instantanée entraîne la continuation amortie du mouvement pendant un court temps. Si un nouveau geste de mouvement est amorcé avant la fin de l'amortissement, ce dernier est arrêté.
 
-![Axes de déplacement et de rotation](site/axes.png)
 
 ### Orientation
 
