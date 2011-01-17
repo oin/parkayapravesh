@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>librvip/gestionnaire_de_scene.cpp</string>
+	<string>win32/ProjetVS/OpenSGTUIO.vcxproj</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -54,14 +54,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>8</integer>
+				<integer>37</integer>
 				<key>line</key>
-				<integer>145</integer>
+				<integer>31</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>130</integer>
+			<integer>91</integer>
 		</dict>
 		<key>libTUIO/TUIO/TuioClient.h</key>
 		<dict>
@@ -156,14 +156,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>12</integer>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>4</integer>
+			<integer>0</integer>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.h</key>
 		<dict>
@@ -309,11 +309,56 @@
 				<integer>290</integer>
 			</dict>
 		</dict>
+		<key>win32/ProjetVS/OpenSGTUIO.vcproj</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>win32/ProjetVS/OpenSGTUIO.vcxproj</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>88</integer>
+		</dict>
+		<key>win32/ProjetVS/parkayapravesh.sln</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>20</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>Makefile</string>
 		<string>README.markdown</string>
+		<string>win32/ProjetVS/OpenSGTUIO.vcxproj</string>
+		<string>win32/ProjetVS/parkayapravesh.sln</string>
+		<string>win32/ProjetVS/OpenSGTUIO.vcproj</string>
 		<string>Memo Git</string>
 		<string>librvip/gestionnaire_de_scene.h</string>
 		<string>librvip/entrees.h</string>
@@ -355,10 +400,25 @@
 					<key>subItems</key>
 					<dict/>
 				</dict>
+				<key>win32</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict>
+						<key>ProjetVS</key>
+						<dict>
+							<key>isExpanded</key>
+							<true/>
+							<key>subItems</key>
+							<dict/>
+						</dict>
+					</dict>
+				</dict>
 			</dict>
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{0, 51}, {1440, 827}}</string>
+	<string>{{1, 209}, {756, 669}}</string>
 </dict>
 </plist>
