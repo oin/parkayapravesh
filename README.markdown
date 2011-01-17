@@ -29,7 +29,7 @@ L'environnement 3D décrit par un graphe de scène doit être visité et manipul
 Le logiciel est écrit en **C++**. Les bibliothèques utilisées sont les suivantes :
 
 * [OpenGL](http://www.opengl.org) et **GLUT** pour l'affichage des graphismes en 3D
-* [OpenSG](http://www.opensg.org) pour l'interprétation et la manipulation des graphes de scène
+* [OpenSG](http://www.opensg.org) 1.8 pour l'interprétation et la manipulation des graphes de scène
 * [TUIO](http://www.tuio.org) pour l'acquisition des gestes multitouch indépendamment du périphérique d'entrée
 
 Le logiciel fonctionne sous les environnements *Windows*, *GNU/Linux* et *Mac OS X*.
@@ -62,7 +62,9 @@ En dehors de l'utilisation classique du logiciel avec une table tactile, il est 
 
 ### Windows
 
-Lancer la solution win32/ProjetVS/OpenSGTUIO.sln sous Visual Studio 2010 (ou transférer la solution à des versions antérieures grâce à un outil quelconque). Générer la solution, puis lancer parkayapravesh.exe depuis le répertoire racine du projet.
+Lancer la solution win32/ProjetVS/OpenSGTUIO.sln sous Visual Studio 2010 (ou transférer la solution à des versions antérieures grâce à un outil quelconque, à vos risques et périls). Générer la solution dans la configuration _Release_, puis lancer OpenSGTUIO.exe depuis le répertoire racine du projet. Testé sur un ordinateur sous Windows 7.
+
+Attention cependant, les images utilisées sont au format PNG, or la version d'OpenSG que vous avez ne support peut-être pas ce format d'iamge. En conséquence, certaines images manqueront (notamment la petite croix pour fermer, en bas à gauche).
 
 ### GNU/Linux et Mac OS X
 
