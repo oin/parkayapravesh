@@ -103,7 +103,11 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	
 	// Crée des doigts
 	ImagePtr doigtimg = Image::create();
+#ifdef WIN32
+	doigtimg->read("data\\doigt.png");
+#else
 	doigtimg->read("data/doigt.png");
+#endif
 
 	doigt1_ = ImageForeground::create();
 	beginEditCP(doigt1_);
@@ -120,7 +124,11 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	
 	// Crée le fond pour l'incarnation
 	ImagePtr fondimg = Image::create();
+#ifdef WIN32
+	fondimg->read("data\\fond_incarnation.png");
+#else
 	fondimg->read("data/fond_incarnation.png");
+#endif
 
 	fond_incarnation_ = ImageForeground::create();
 	beginEditCP(fond_incarnation_);
@@ -131,7 +139,11 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	
 	// Crée le cadre
 	ImagePtr cadreimg1 = Image::create();
+#ifdef WIN32
+	cadreimg1->read("data\\cadre_haut.png");
+#else
 	cadreimg1->read("data/cadre_haut.png");
+#endif
 
 	cadre_haut_ = ImageForeground::create();
 	beginEditCP(cadre_haut_);
@@ -141,7 +153,11 @@ void gestionnaire_de_scene::init(int* argc, char** argv) {
 	viewport2_->getMFForegrounds()->push_back(cadre_haut_);
 	
 	ImagePtr cadreimg2 = Image::create();
+#ifdef WIN32
+	cadreimg2->read("data\\cadre_gauche.png");
+#else
 	cadreimg2->read("data/cadre_gauche.png");
+#endif
 
 	cadre_gauche_ = ImageForeground::create();
 	beginEditCP(cadre_gauche_);
@@ -817,7 +833,11 @@ void gestionnaire_de_scene::updateHighlight() {
 void gestionnaire_de_scene::iconeFermer(){
 	ImagePtr img = Image::create();
 	beginEditCP(img);
+#ifdef WIN32
+		img->read("data\\iconeFermer.png");
+#else
 		img->read("data/iconeFermer.png");
+#endif
 	endEditCP(img);
 
 	ImageForegroundPtr imgFrg = ImageForeground::create();
@@ -832,7 +852,11 @@ void gestionnaire_de_scene::cadre(){
 	  //Chargement du cadre pour le viewport 3ieme personne
 	ImagePtr img = Image::create();
 	beginEditCP(img);
+#ifdef WIN32
+		img->read("data\\carre.png");
+#else
 		img->read("data/carre.png");
+#endif
 		//img->read("data/iconeFermer.png");
 	endEditCP(img);
 

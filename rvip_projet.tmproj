@@ -119,7 +119,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>42</integer>
+			<integer>39</integer>
 		</dict>
 		<key>librvip/entrees.h</key>
 		<dict>
@@ -135,7 +135,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>19</integer>
+			<integer>15</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
@@ -156,14 +156,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>622</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>603</integer>
+			<integer>4</integer>
 		</dict>
 		<key>librvip/gestionnaire_de_scene.h</key>
 		<dict>
@@ -177,7 +177,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>26</integer>
+			<integer>0</integer>
 		</dict>
 		<key>librvip/mario.cpp</key>
 		<dict>
@@ -228,14 +228,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>68</integer>
+				<integer>4</integer>
 				<key>line</key>
 				<integer>87</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>63</integer>
+			<integer>41</integer>
 		</dict>
 		<key>librvip/peach.h</key>
 		<dict>
@@ -249,7 +249,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>5</integer>
 		</dict>
 		<key>librvip/rvip.h</key>
 		<dict>
@@ -279,6 +279,36 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>parkayapravesh.src/parkayapravesh.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>290</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>248</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>12</integer>
+				<key>line</key>
+				<integer>290</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>290</integer>
+			</dict>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
@@ -296,6 +326,7 @@
 		<string>librvip/peach.cpp</string>
 		<string>librvip/entrees.cpp</string>
 		<string>librvip/gestionnaire_de_scene.cpp</string>
+		<string>parkayapravesh.src/parkayapravesh.cpp</string>
 		<string>librvip/rvip.h</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
@@ -317,10 +348,17 @@
 					<key>subItems</key>
 					<dict/>
 				</dict>
+				<key>parkayapravesh.src</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
 			</dict>
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{379, 73}, {720, 805}}</string>
+	<string>{{0, 51}, {1440, 827}}</string>
 </dict>
 </plist>
