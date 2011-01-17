@@ -1,6 +1,8 @@
 <h1 id="titre">Parkayapravesh</h1>
 <h2 id="slogan">It really whips the Dalai Lama's ass !</h2>
 
+[Vidéo de démonstration](http://www.youtube.com/watch?v=hp9j6HuhVC4)
+
 # Introduction
 
 Parkayapravesh est le projet de l'UE **Réalité virtuelle, interaction et perception** (RVIP) du Master 2 ISM de l'université Bordeaux 1, réalisé par :
