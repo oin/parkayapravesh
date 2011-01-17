@@ -1,7 +1,7 @@
 <h1 id="titre">Parkayapravesh</h1>
 <h2 id="slogan">It really whips the Dalai Lama's ass !</h2>
 
-[Copie d'écran](http://jonathan.aceituno.etu.u-bordeaux1.fr/rvip1.png) •
+[Copie d'écran](http://jonathan.aceituno.emi.u-bordeaux1.fr/rvip1.png) •
 [Vidéo de démonstration](http://www.youtube.com/watch?v=hp9j6HuhVC4)
 
 # Introduction
