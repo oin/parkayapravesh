@@ -64,6 +64,8 @@ En dehors de l'utilisation classique du logiciel avec une table tactile, il est 
 
 ### Windows
 
+Aller dans le répertoire libTUIO, lancer la solution TUIO_CPP.sln, puis copier Release/libTUIO.lib dans le répertoire libTUIO.
+
 Lancer la solution win32/ProjetVS/OpenSGTUIO.sln sous Visual Studio 2010 (ou transférer la solution à des versions antérieures grâce à un outil quelconque, à vos risques et périls). Générer la solution dans la configuration _Release_, puis lancer OpenSGTUIO.exe depuis le répertoire racine du projet. Testé sur un ordinateur sous Windows 7.
 
 Attention cependant, les images utilisées sont au format PNG, or la version d'OpenSG que vous avez ne supporte peut-être pas ce format d'image, surtout sous Windows. En conséquence, certaines images manqueront (notamment la petite croix pour fermer, en bas à gauche).
@@ -72,6 +74,9 @@ Attention cependant, les images utilisées sont au format PNG, or la version d'O
 
 Se placer dans le répertoire du projet. Exécuter les commandes suivantes :
 
+	$ cd libTUIO
+	$ make
+	$ cd ..
 	$ make
 	$ ./parkayapravesh
 
